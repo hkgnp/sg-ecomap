@@ -31,9 +31,11 @@ export default function Toolbar(props: {
   function filterResources(e: any) {
     setResources(
       props.resources.filter(
-        (r) =>
+        (r: Resource) =>
           r.org.toLowerCase().includes(e.toLowerCase()) ||
-          r.category.toLowerCase().includes(e.toLowerCase())
+          r.category.toLowerCase().includes(e.toLowerCase()) ||
+          r.address.toLowerCase().includes(e.toLowerCase()) ||
+          r.postal === parseInt(e)
       )
     );
   }
@@ -61,7 +63,7 @@ export default function Toolbar(props: {
     >
       <div
         onClick={toggleSideBar}
-        className="font-bold h-6 px-3 bg-white absolute border-gray-800 cursor-pointer rounded-t -top-5 left-6 flex justify-center align-middle"
+        className="font-bold h-7 px-3 bg-white absolute border-gray-800 cursor-pointer rounded-t -top-5 left-6 flex justify-center align-middle"
       >
         <span className="">{toolBar ? <IconArrowDown /> : "More Options"}</span>
       </div>
