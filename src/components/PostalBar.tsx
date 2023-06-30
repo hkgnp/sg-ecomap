@@ -44,7 +44,7 @@ export default function PostalBar() {
             <div className="font-bold mr-2">Radius (m)</div>
             <input
               className="pl-2 py-1 border border-gray-400 rounded-md focus:outline-none w-1/2"
-              onChange={(e) => setRadius(parseInt(e.target.value))}
+              onChange={(e) => setRadius(parseInt(e.target.value) || 0)}
               value={radius}
               placeholder="Set a radius"
               maxLength={5}
