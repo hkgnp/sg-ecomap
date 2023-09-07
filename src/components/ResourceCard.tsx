@@ -13,11 +13,13 @@ export default function ResourceCard(props: any) {
       onClick={goToMarker}
       className="border border-blue-800 rounded-md p-3 text-xs hover:text-white hover:bg-blue-800"
     >
-      <p>{props.org}</p>
+      <p>{props.name}</p>
       <div>
         <span className="rounded-full">{props.category}</span>
       </div>
-      <p>{props.address}</p>
+      <p>
+        {props.address} Singapore {props.postalCode}
+      </p>
     </button>
   );
 }

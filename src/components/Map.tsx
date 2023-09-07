@@ -2,7 +2,7 @@ import { LatLngExpression } from "leaflet";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 const Toolbar = lazy(() => import("./Toolbar"));
-import allResources from "../assets/resource-list.json";
+import allResources from "../assets/community_list_cleaned.json";
 const PostalBar = lazy(() => import("./PostalBar"));
 
 export default function Map() {

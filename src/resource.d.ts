@@ -3,8 +3,11 @@ export interface Resource {
   category: string;
   latitude: number;
   longitude: number;
-  org: string;
-  postal: number;
+  name: string;
+  postalCode: string;
+  email: string | null;
+  contactNumber: string | null;
+  website: string | null;
 }
 
 export interface OnemapResult {

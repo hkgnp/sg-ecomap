@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Resource } from "../resource";
 import uniqueIdentifier from "../services/generateUniqueId";
 import ResourceCard from "./ResourceCard";
-import { IconArrowDown, IconArrowUp } from "./Icons";
+import { IconArrowDown } from "./Icons";
 import { Marker, Popup, useMap } from "react-leaflet";
 import { DebounceInput } from "react-debounce-input";
 
@@ -32,10 +32,10 @@ export default function Toolbar(props: {
     setResources(
       props.resources.filter(
         (r: Resource) =>
-          r.org.toLowerCase().includes(e.toLowerCase()) ||
+          r.name.toLowerCase().includes(e.toLowerCase()) ||
           r.category.toLowerCase().includes(e.toLowerCase()) ||
           r.address.toLowerCase().includes(e.toLowerCase()) ||
-          r.postal === parseInt(e)
+          r.postalCode === e
       )
     );
   }
@@ -73,9 +73,11 @@ export default function Toolbar(props: {
           <Marker key={uniqueIdentifier()} position={[r.latitude, r.longitude]}>
             <Popup>
               <p>
-                {r.org} ({r.category})
+                {r.name} ({r.category})
               </p>
-              <p>{r.address}</p>
+              <p>
+                {r.address} S({r.postalCode})
+              </p>
             </Popup>
           </Marker>
         ))}
@@ -110,8 +112,8 @@ export default function Toolbar(props: {
               category={r.category}
               latitude={r.latitude}
               longitude={r.longitude}
-              org={r.org}
-              postal={r.postal}
+              name={r.name}
+              postalCode={r.postalCode}
               setMarker={props.setMarker}
             />
           ))}
