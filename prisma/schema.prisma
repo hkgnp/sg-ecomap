@@ -33,9 +33,9 @@ model VerificationToken {
 
 model Post {
   id           String       @id @default(cuid())
-  title        String?      @db.Text
-  content      String       @db.Text
-  contentHtml  String       @map("content_html") @db.Text
+  title        String?      @db.String
+  content      String       @db.String
+  contentHtml  String       @map("content_html") @db.String
   authorId     String       @map("author_id")
   author       User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
   images       String[]
