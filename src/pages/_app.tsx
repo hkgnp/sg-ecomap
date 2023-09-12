@@ -13,7 +13,6 @@ import { DefaultLayout } from '~/templates/layouts/DefaultLayout'
 import { theme } from '~/theme'
 import { trpc } from '~/utils/trpc'
 import { FeatureProvider } from '~/components/AppProviders'
-import { LoginStateProvider } from '~/features/auth'
 
 type AppPropsWithAuthAndLayout = AppProps & {
   Component: NextPageWithLayout
@@ -23,20 +22,18 @@ const MyApp = ((props: AppPropsWithAuthAndLayout) => {
   return (
     // Must wrap Jotai's provider in SSR context, see https://jotai.org/docs/guides/nextjs#provider.
     <Provider>
-      <LoginStateProvider>
-        <ThemeProvider theme={theme}>
-          <FeatureProvider>
-            <ErrorBoundary>
-              <Suspense fallback={<Skeleton width="100vw" height="100vh" />}>
-                <ChildWithLayout {...props} />
-                {process.env.NODE_ENV !== 'production' && (
-                  <ReactQueryDevtools initialIsOpen={false} />
-                )}
-              </Suspense>
-            </ErrorBoundary>
-          </FeatureProvider>
-        </ThemeProvider>
-      </LoginStateProvider>
+      <ThemeProvider theme={theme}>
+        <FeatureProvider>
+          <ErrorBoundary>
+            <Suspense fallback={<Skeleton width="100vw" height="100vh" />}>
+              <ChildWithLayout {...props} />
+              {process.env.NODE_ENV !== 'production' && (
+                <ReactQueryDevtools initialIsOpen={false} />
+              )}
+            </Suspense>
+          </ErrorBoundary>
+        </FeatureProvider>
+      </ThemeProvider>
     </Provider>
   )
 }) as AppType
