@@ -4,7 +4,6 @@ import type { GetStaticProps } from 'next'
 import type { Resource } from '@prisma/client'
 import { prisma } from '~/server/prisma'
 import React, { createContext } from 'react'
-import { Props } from './types'
 
 export const getStaticProps: GetStaticProps = async () => {
   const resources = await prisma.resource.findMany()
@@ -12,6 +11,10 @@ export const getStaticProps: GetStaticProps = async () => {
     props: { resources },
     revalidate: 10,
   }
+}
+
+type Props = {
+  resources: Resource[]
 }
 
 export const ResourceContext = createContext<Resource[] | null>(null)
