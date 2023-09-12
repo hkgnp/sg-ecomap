@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+model Resource {
+  id            String  @id @default(cuid())
+  name          String
+  category      String
+  address       String
+  latitude      Float
+  longitude     Float
+  postalCode    String
+  email         String?
+  contactNumber String?
+  website       String?
+}
