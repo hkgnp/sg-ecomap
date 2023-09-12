@@ -34,9 +34,6 @@ const ContentSecurityPolicy = `
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   /**
    * Dynamic configuration available for the browser and server.
    * Note: requires `ssr: true` or a `getInitialProps` in `_app.tsx`
@@ -46,7 +43,7 @@ const config = {
     NODE_ENV: env.NODE_ENV,
   },
   /** We run eslint as a separate task in CI */
-  //eslint: { ignoreDuringBuilds: !!process.env.CI },
+  eslint: { ignoreDuringBuilds: !!process.env.CI },
   images: {
     domains: [env.R2_PUBLIC_HOSTNAME ?? ''].filter((d) => d),
   },
