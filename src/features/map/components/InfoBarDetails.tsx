@@ -13,7 +13,7 @@ export const InfoBarDetails = ({
   return (
     <>
       <Flex gap="2">
-        <BiMapPin size="24px" />
+        <BiMapPin size="48px" />
         <Text textStyle="body-2" lineHeight="2" marginBottom="2">
           {address} S({postalCode})
         </Text>

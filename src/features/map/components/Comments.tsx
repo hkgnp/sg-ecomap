@@ -1,4 +1,5 @@
 import { Text } from '@chakra-ui/react'
+import { Textarea } from '@opengovsg/design-system-react'
 import { format } from 'date-fns'
 import { PostProps } from '../types'
 
@@ -8,6 +9,7 @@ export const Comments = ({ posts }: PostProps) => {
       <Text textStyle="h6" marginTop="5">
         Comments
       </Text>
+      <Textarea size="xs" />
       {posts.map((p) => (
         <>
           <Text textStyle="body-2">{p.title}</Text>

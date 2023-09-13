@@ -6,17 +6,16 @@ import {
   DrawerOverlay,
   Text,
 } from '@chakra-ui/react'
-import { ResourceWithPosts, type InfoBarProps } from '~/features/map/types'
+import { type InfoBarProps } from '~/features/map/types'
 import { useContext } from 'react'
 import { ResourceContext } from '~/pages/map'
-import { findResource } from '~/features/map/utils/find-resource'
 import { Tag } from '@opengovsg/design-system-react'
 import { InfoBarDetails } from './InfoBarDetails'
 import { Comments } from './Comments'
 
 export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
   const resources = useContext(ResourceContext)
-  const selectedResource: ResourceWithPosts = findResource(resources, id)
+  const selectedResource = resources?.filter((r) => r.id === id)[0]
 
   if (selectedResource) {
     const {
