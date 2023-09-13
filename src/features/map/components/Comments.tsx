@@ -1,13 +1,23 @@
 import { Text } from '@chakra-ui/react'
-import { prisma } from '~/server/prisma'
+import { format } from 'date-fns'
+import { PostProps } from '../types'
 
-export const Comments = () => {
+export const Comments = ({ posts }: PostProps) => {
   return (
     <>
       <Text textStyle="h6" marginTop="5">
         Comments
       </Text>
-      <Text textStyle="body-2">This resource is awesome</Text>
+      {posts.map((p) => (
+        <>
+          <Text textStyle="body-2">{p.title}</Text>
+          <Text textStyle="body-2">{p.content}</Text>
+          <Text textStyle="body-2">author: {p.author.name}</Text>
+          <Text textStyle="caption">
+            created: {format(new Date(p.updatedAt), 'dd-MM-yyyy')}
+          </Text>
+        </>
+      ))}
     </>
   )
 }

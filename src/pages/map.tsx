@@ -8,7 +8,11 @@ import React, { createContext } from 'react'
 export const getServerSideProps: GetServerSideProps = async () => {
   const resources = await prisma.resource.findMany({
     include: {
-      posts: true,
+      posts: {
+        include: {
+          author: true,
+        },
+      },
     },
   })
   return {

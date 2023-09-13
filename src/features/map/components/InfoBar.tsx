@@ -30,6 +30,7 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
       website,
       longitude,
       postalCode,
+      posts,
     } = selectedResource
 
     return (
@@ -50,7 +51,7 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
               contactNumber={contactNumber}
               email={email}
             />
-            <Comments />
+            <Comments posts={posts} />
           </DrawerBody>
           <p>Report an error</p>
         </DrawerContent>

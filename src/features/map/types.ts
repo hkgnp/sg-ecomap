@@ -1,15 +1,10 @@
+import { Post, Prisma, Resource } from '@prisma/client'
 import { type LatLngExpression, type LeafletMouseEventHandlerFn } from 'leaflet'
 import { type Dispatch, type SetStateAction } from 'react'
 
-export type MarkerObjProps = {
-  address: string
-  contactNumber: string
-  id: string
-  name: string
+export interface MarkerObjProps extends Resource {
   onOpen: LeafletMouseEventHandlerFn
   position: LatLngExpression
-  postalCode: string
-  website: string
 }
 
 export type DrawerContextProps = {
@@ -21,4 +16,12 @@ export type InfoBarProps = {
   isOpen: boolean
   onClose: () => void
   id: string
+}
+
+export type ResourceWithPosts = Prisma.ResourceGetPayload<{
+  include: { posts: true }
+}>
+
+export type PostProps = {
+  posts: Post[]
 }
