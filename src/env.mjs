@@ -17,7 +17,7 @@ const coerceBoolean = z
 const client = z.object({
   NEXT_PUBLIC_ENABLE_STORAGE: coerceBoolean.default('false'),
   NEXT_PUBLIC_ENABLE_SGID: coerceBoolean.default('false'),
-  NEXT_PUBLIC_APP_NAME: z.string().default('Cost Transparency'),
+  NEXT_PUBLIC_APP_NAME: z.string().default('SG Ecomap'),
 })
 
 /** Feature flags */
