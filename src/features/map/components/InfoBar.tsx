@@ -4,10 +4,9 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  Flex,
   Text,
 } from '@chakra-ui/react'
-import { type InfoBarProps } from '~/features/map/types'
+import { ResourceWithPosts, type InfoBarProps } from '~/features/map/types'
 import { useContext } from 'react'
 import { ResourceContext } from '~/pages/map'
 import { findResource } from '~/features/map/utils/find-resource'
@@ -17,18 +16,16 @@ import { Comments } from './Comments'
 
 export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
   const resources = useContext(ResourceContext)
-  const selectedResource = findResource(resources, id)
+  const selectedResource: ResourceWithPosts = findResource(resources, id)
 
   if (selectedResource) {
     const {
       name,
       address,
       contactNumber,
-      latitude,
       email,
       category,
       website,
-      longitude,
       postalCode,
       posts,
     } = selectedResource

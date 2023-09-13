@@ -1,4 +1,4 @@
-import { Post, Prisma, Resource } from '@prisma/client'
+import { Prisma, Resource } from '@prisma/client'
 import { type LatLngExpression, type LeafletMouseEventHandlerFn } from 'leaflet'
 import { type Dispatch, type SetStateAction } from 'react'
 
@@ -16,6 +16,10 @@ export type InfoBarProps = {
   isOpen: boolean
   onClose: () => void
   id: string
+}
+
+export type Props = {
+  resources: Resource[]
 }
 
 export type ResourceWithPosts = Prisma.ResourceGetPayload<{
