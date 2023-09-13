@@ -15,8 +15,9 @@ import { Comments } from './Comments'
 
 export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
   const resources = useContext(ResourceContext)
-  const selectedResource = resources?.filter((r) => r.id === id)[0]
-
+  //TODO: Clean this up
+  if (!resources) return <div></div>
+  const selectedResource = resources.filter((r) => r.id === id)[0]
   if (selectedResource) {
     const {
       name,
