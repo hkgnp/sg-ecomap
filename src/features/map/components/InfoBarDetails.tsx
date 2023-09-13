@@ -3,6 +3,7 @@ import { BiGlobe, BiPhone, BiMailSend, BiMapPin } from 'react-icons/bi'
 import { Resource } from '@prisma/client'
 
 export const InfoBarDetails = ({
+  id,
   address,
   postalCode,
   website,

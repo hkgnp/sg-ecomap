@@ -1,4 +1,5 @@
 import { Text } from '@chakra-ui/react'
+import { prisma } from '~/server/prisma'
 
 export const Comments = () => {
   return (
