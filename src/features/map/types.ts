@@ -19,9 +19,13 @@ export type InfoBarProps = {
 }
 
 export type ResourceWithPosts = Prisma.ResourceGetPayload<{
-  include: { posts: true }
+  include: { posts: { include: { author: true } } }
+}>
+
+export type PostWithAuthor = Prisma.PostGetPayload<{
+  include: { author: true }
 }>
 
 export type PostProps = {
-  posts: Post[]
+  posts: PostWithAuthor[]
 }
