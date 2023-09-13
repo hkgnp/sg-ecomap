@@ -10,6 +10,7 @@ import { type DrawerContextProps } from '~/features/map/types'
 import { InfoBar } from '~/features/map/components/InfoBar'
 
 export const DrawerContext = createContext<DrawerContextProps | null>(null)
+
 const Index = () => {
   const singapore: LatLngExpression = [1.3521, 103.8198]
   const { isOpen, onOpen, onClose } = useDisclosure()
