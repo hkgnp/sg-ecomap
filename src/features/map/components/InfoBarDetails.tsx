@@ -1,6 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react'
-import { Resource } from '@prisma/client'
 import { BiGlobe, BiPhone, BiMailSend, BiMapPin } from 'react-icons/bi'
+import { ResourceWithPosts } from '../types'
 
 export const InfoBarDetails = ({
   id,
@@ -9,7 +9,7 @@ export const InfoBarDetails = ({
   website,
   contactNumber,
   email,
-}: Resource) => {
+}: ResourceWithPosts) => {
   return (
     <>
       <Flex gap="2">
