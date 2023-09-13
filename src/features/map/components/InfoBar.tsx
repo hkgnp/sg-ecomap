@@ -12,9 +12,8 @@ import { useContext } from 'react'
 import { ResourceContext } from '~/pages/map'
 import { findResource } from '~/features/map/utils/find-resource'
 import { useSwipeable } from 'react-swipeable'
-import { SlLocationPin, SlPhone } from 'react-icons/sl'
-import { CgWebsite } from 'react-icons/cg'
-import { MdEmail } from 'react-icons/md'
+import { BiGlobe, BiPhone, BiMailSend, BiMapPin } from 'react-icons/bi'
+import { Tag } from '@opengovsg/design-system-react'
 
 export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
   const resources = useContext(ResourceContext)
@@ -44,18 +43,20 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
         <DrawerContent {...handlers}>
           <DrawerHeader borderBottomWidth="1px">
             <Text textStyle="responsive-heading.light">{name}</Text>
-            <Text textStyle="subhead-1">{category}</Text>
+            <Tag variant="subtle" marginTop="2">
+              {category}
+            </Tag>
           </DrawerHeader>
           <DrawerBody>
             <Flex gap="2">
-              <SlLocationPin size="48px" />
+              <BiMapPin size="48px" />
               <Text textStyle="body-2" lineHeight="2" marginBottom="2">
                 {address} S({postalCode})
               </Text>
             </Flex>
 
             <Flex gap="2">
-              <MdEmail size="24px" />
+              <BiMailSend size="24px" />
               <Text
                 textStyle="body-2"
                 noOfLines={1}
@@ -67,7 +68,7 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
             </Flex>
 
             <Flex gap="2">
-              <SlPhone size="23px" />
+              <BiPhone size="23px" />
               <Text
                 textStyle="body-2"
                 noOfLines={1}
@@ -79,7 +80,7 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
             </Flex>
 
             <Flex gap="2">
-              <CgWebsite size="24px" />
+              <BiGlobe size="24px" />
               <Text
                 textStyle="body-2"
                 noOfLines={1}
