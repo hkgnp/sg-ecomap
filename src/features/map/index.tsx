@@ -23,7 +23,7 @@ const Index = () => {
         center={singapore}
         zoom={13}
         scrollWheelZoom={false}
-        style={{ height: '100vh', width: '100%', zIndex: 1 }}
+        style={{ position: 'fixed', height: '100vh', width: '100%' }}
       >
         <TileLayer
           url={'https://www.onemap.gov.sg/maps/tiles/Default/{z}/{x}/{y}.png'}
