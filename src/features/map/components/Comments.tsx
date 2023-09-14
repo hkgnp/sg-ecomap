@@ -14,7 +14,13 @@ export const Comments = ({ id }: PostProps) => {
       '/api/comment?' +
         new URLSearchParams({
           id,
-        })
+        }),
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      }
     )
     const { result } = await response.json()
     setPostsArr(result)
