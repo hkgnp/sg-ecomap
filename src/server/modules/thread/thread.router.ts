@@ -26,6 +26,7 @@ export const threadRouter = router({
           ? imageKeys?.map((key) => `https://${env.R2_PUBLIC_HOSTNAME}/${key}`)
           : []
         return await ctx.prisma.post.create({
+          //@ts-ignore
           data: {
             ...replyData,
             images,
