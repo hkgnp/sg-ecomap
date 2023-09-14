@@ -17,16 +17,8 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
   const resources = useContext(ResourceContext)
   const selectedResource = resources?.filter((r) => r.id === id)[0]
   if (!selectedResource) return <div></div>
-  const {
-    name,
-    address,
-    contactNumber,
-    email,
-    category,
-    website,
-    postalCode,
-    posts,
-  } = selectedResource
+  const { name, address, contactNumber, email, category, website, postalCode } =
+    selectedResource
 
   return (
     <>
@@ -53,7 +45,7 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
                 contactNumber={contactNumber}
                 email={email}
               />
-              <Comments posts={posts} />
+              <Comments id={id} />
             </DrawerBody>
             <Text>Report an error</Text>
           </DrawerContent>

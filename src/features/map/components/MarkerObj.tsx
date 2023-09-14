@@ -1,5 +1,5 @@
 import { Marker, useMap } from 'react-leaflet'
-import { ResourceWithPosts, type MarkerObjProps } from '~/features/map/types'
+import { type MarkerObjProps } from '~/features/map/types'
 import { useContext } from 'react'
 import { DrawerContext } from '~/features/map'
 import { type LeafletMouseEvent } from 'leaflet'

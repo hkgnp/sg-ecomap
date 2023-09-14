@@ -1,9 +1,6 @@
-import { ResourceWithPosts } from '../types'
+import { Resource } from '@prisma/client'
 
-export const findResource = (
-  resources: ResourceWithPosts[] | null,
-  id: string
-) => {
+export const findResource = (resources: Resource[] | null, id: string) => {
   if (!resources) return
   const resourceArr = resources.filter((r) => r.id === id)
   if (resourceArr.length === 0) return

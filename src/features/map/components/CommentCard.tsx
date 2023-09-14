@@ -13,9 +13,9 @@ import {
 import { RxAvatar } from 'react-icons/rx'
 
 export const CommentCard = ({
+  authorName,
   title,
   content,
-  authorName,
   updatedAt,
 }: CommentCardProps) => {
   return (

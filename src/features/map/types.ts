@@ -23,16 +23,12 @@ export type Props = {
   resources: Resource[]
 }
 
-export type ResourceWithPosts = Prisma.ResourceGetPayload<{
-  include: { posts: { include: { author: true } } }
-}>
-
 export type PostWithAuthor = Prisma.PostGetPayload<{
   include: { author: true }
 }>
 
 export type PostProps = {
-  posts: PostWithAuthor[]
+  id: string
 }
 
 export type CommentCardProps = {

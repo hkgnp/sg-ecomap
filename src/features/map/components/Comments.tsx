@@ -1,24 +1,62 @@
 import { Text } from '@chakra-ui/react'
-import { Textarea } from '@opengovsg/design-system-react'
-import { PostProps } from '../types'
+import { Button, Textarea } from '@opengovsg/design-system-react'
+import { useEffect, useState } from 'react'
+import { PostProps, PostWithAuthor } from '../types'
 import { CommentCard } from './CommentCard'
+import { AiOutlineSend } from 'react-icons/ai'
 
-export const Comments = ({ posts }: PostProps) => {
+export const Comments = ({ id }: PostProps) => {
+  const [postsArr, setPostsArr] = useState<PostWithAuthor[]>()
+  const [comment, setComment] = useState<string>()
+
+  const fetchComments = async () => {
+    const response = await fetch(
+      '/api/comment?' +
+        new URLSearchParams({
+          id,
+        })
+    )
+    setPostsArr(await response.json())
+  }
+
+  useEffect(() => {
+    ;(async () => {
+      await fetchComments()
+    })()
+  }, [])
+
+  const writeComment = async () => {
+    if (!comment || comment.length == 0) return
+    await fetch('/api/comment', {
+      method: 'POST',
+      body: JSON.stringify({
+        content: comment,
+        resourceId: id,
+      }),
+    })
+    await fetchComments()
+    setComment('')
+  }
+
   return (
     <>
       <Text textStyle="h6" marginTop="5">
         Comments
       </Text>
-      <Textarea size="xs" fontSize="16px" marginY="3" />
-      {posts.map((p) => (
-        <CommentCard
-          key={p.id}
-          title={p.title}
-          content={p.content}
-          authorName={p.author.name}
-          updatedAt={p.updatedAt}
-        />
-      ))}
+      <Textarea onChange={(e) => setComment(e.target.value)} value={comment} />
+      <Button size="xs" onClick={writeComment}>
+        Send
+      </Button>
+      {postsArr &&
+        postsArr.map((p) => (
+          <CommentCard
+            key={p.id}
+            authorName={p.author.name}
+            title={p.title}
+            content={p.content}
+            updatedAt={p.updatedAt}
+          />
+        ))}
     </>
   )
 }
