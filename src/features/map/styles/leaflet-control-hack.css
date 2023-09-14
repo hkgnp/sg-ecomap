@@ -1,0 +1,7 @@
+/* Safari bug fix for #8068. */
+@supports (-webkit-touch-callout: none) {
+  .leaflet-control-container .leaflet-top,
+  .leaflet-control-container .leaflet-bottom {
+    will-change: transform;
+  }
+}

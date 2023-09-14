@@ -34,3 +34,10 @@ export type PostWithAuthor = Prisma.PostGetPayload<{
 export type PostProps = {
   posts: PostWithAuthor[]
 }
+
+export type CommentCardProps = {
+  title: string | null
+  content: string
+  authorName: string | null
+  updatedAt: Date
+}

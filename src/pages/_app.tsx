@@ -1,5 +1,6 @@
 import '@fontsource/ibm-plex-mono' // Import if using code textStyles.
 import 'inter-ui/inter.css' // Strongly recommended.
+import '../features/map/styles/leaflet-control-hack.css'
 
 import { Skeleton } from '@chakra-ui/react'
 import { ThemeProvider } from '@opengovsg/design-system-react'

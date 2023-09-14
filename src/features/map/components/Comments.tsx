@@ -1,7 +1,7 @@
 import { Text } from '@chakra-ui/react'
 import { Textarea } from '@opengovsg/design-system-react'
-import { format } from 'date-fns'
 import { PostProps } from '../types'
+import { CommentCard } from './CommentCard'
 
 export const Comments = ({ posts }: PostProps) => {
   return (
@@ -11,14 +11,13 @@ export const Comments = ({ posts }: PostProps) => {
       </Text>
       <Textarea size="xs" fontSize="16px" />
       {posts.map((p) => (
-        <>
-          <Text textStyle="body-2">{p.title}</Text>
-          <Text textStyle="body-2">{p.content}</Text>
-          <Text textStyle="body-2">author: {p.author.name}</Text>
-          <Text textStyle="caption">
-            created: {format(new Date(p.updatedAt), 'dd-MM-yyyy')}
-          </Text>
-        </>
+        <CommentCard
+          key={p.id}
+          title={p.title}
+          content={p.content}
+          authorName={p.author.name}
+          updatedAt={p.updatedAt}
+        />
       ))}
     </>
   )
