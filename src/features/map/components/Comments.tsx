@@ -9,7 +9,7 @@ export const Comments = ({ posts }: PostProps) => {
       <Text textStyle="h6" marginTop="5">
         Comments
       </Text>
-      <Textarea size="xs" fontSize="16px" />
+      <Textarea size="xs" fontSize="16px" marginY="3" />
       {posts.map((p) => (
         <CommentCard
           key={p.id}
