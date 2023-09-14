@@ -9,7 +9,7 @@ export const InfoBarDetails = ({
   website,
   contactNumber,
   email,
-}: ResourceWithPosts) => {
+}: Partial<ResourceWithPosts>) => {
   return (
     <>
       <Flex gap="2">
