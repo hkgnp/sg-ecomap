@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic'
 import 'leaflet/dist/leaflet.css'
 import type { GetServerSideProps } from 'next'
+import type { Resource } from '@prisma/client'
 import { prisma } from '~/server/prisma'
 import React, { createContext } from 'react'
 import { Props, ResourceWithPosts } from '~/features/map/types'
@@ -20,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   }
 }
 
-export const ResourceContext = createContext<ResourceWithPosts[] | null>(null)
+export const ResourceContext = createContext<Resource[] | null>(null)
 
 const Home: React.FC<Props> = (props) => {
   const MapWithNoSSR = dynamic(() => import('../features/map'), {
