@@ -33,6 +33,9 @@ export const Comments = ({ id }: PostProps) => {
         content: comment,
         resourceId: id,
       }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
     await fetchComments()
     setComment('')
