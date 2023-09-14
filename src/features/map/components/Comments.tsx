@@ -9,7 +9,7 @@ export const Comments = ({ posts }: PostProps) => {
       <Text textStyle="h6" marginTop="5">
         Comments
       </Text>
-      <Textarea size="xs" />
+      <Textarea size="xs" isSuccess={false} />
       {posts.map((p) => (
         <>
           <Text textStyle="body-2">{p.title}</Text>

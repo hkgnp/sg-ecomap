@@ -31,7 +31,12 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
   return (
     <>
       {resources && selectedResource && (
-        <Drawer placement={'right'} onClose={onClose} isOpen={isOpen}>
+        <Drawer
+          placement={'right'}
+          onClose={onClose}
+          isOpen={isOpen}
+          autoFocus={false}
+        >
           <DrawerOverlay />
           <DrawerContent>
             <DrawerHeader borderBottomWidth="1px">
