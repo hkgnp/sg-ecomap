@@ -27,6 +27,7 @@ const Home: React.FC<Props> = (props) => {
     ssr: false,
   })
   return (
+    // @ts-ignore is needed because type cannot recognise that props.resources already contains the relational object
     //@ts-ignore
     <ResourceContext.Provider value={props.resources}>
       <div id="map">
