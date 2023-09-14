@@ -1,7 +1,7 @@
 import { prisma } from '~/server/prisma'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function handle(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -36,8 +36,8 @@ export default async function handle(
           author: true,
         },
       })
-      res.status(200).json(result)
-      res.send('Success')
+      console.log(result)
+      res.status(200).send({ result })
     } catch (e) {
       res.status(400)
       console.log(e)

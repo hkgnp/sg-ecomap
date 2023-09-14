@@ -16,7 +16,8 @@ export const Comments = ({ id }: PostProps) => {
           id,
         })
     )
-    setPostsArr(await response.json())
+    const { result } = await response.json()
+    setPostsArr(result)
   }
 
   useEffect(() => {
