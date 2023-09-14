@@ -6,7 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'POST') {
-    const { content, resourceId } = JSON.parse(req.body)
+    const { content, resourceId } = req.body
     try {
       const result = await prisma.post.create({
         data: {
@@ -16,7 +16,7 @@ export default async function handler(
           resourceId: resourceId,
         },
       })
-      res.status(200).json(result)
+      res.status(200).send({ result })
       res.send('Success')
     } catch (e) {
       res.status(400)

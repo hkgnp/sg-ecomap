@@ -25,6 +25,7 @@ export const Comments = ({ id }: PostProps) => {
     )
     const { result } = await response.json()
     setPostsArr(result)
+    // TODO Skeleton can be cleaner
     setLoaded(true)
   }
 
