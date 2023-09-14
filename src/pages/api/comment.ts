@@ -36,7 +36,6 @@ export default async function handler(
           author: true,
         },
       })
-      console.log(result)
       res.status(200).send({ result })
     } catch (e) {
       res.status(400)

@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react'
+import { Skeleton, Stack, Text } from '@chakra-ui/react'
 import { Button, Textarea } from '@opengovsg/design-system-react'
 import { useEffect, useState } from 'react'
 import { PostProps, PostWithAuthor } from '../types'
@@ -6,6 +6,7 @@ import { CommentCard } from './CommentCard'
 import { AiOutlineSend } from 'react-icons/ai'
 
 export const Comments = ({ id }: PostProps) => {
+  const [loaded, setLoaded] = useState<boolean>(false)
   const [postsArr, setPostsArr] = useState<PostWithAuthor[]>()
   const [comment, setComment] = useState<string>()
 
@@ -24,6 +25,7 @@ export const Comments = ({ id }: PostProps) => {
     )
     const { result } = await response.json()
     setPostsArr(result)
+    setLoaded(true)
   }
 
   useEffect(() => {
@@ -34,6 +36,7 @@ export const Comments = ({ id }: PostProps) => {
 
   const writeComment = async () => {
     if (!comment || comment.length == 0) return
+    setLoaded(false)
     await fetch('/api/comment', {
       method: 'POST',
       body: JSON.stringify({
@@ -54,10 +57,18 @@ export const Comments = ({ id }: PostProps) => {
         Comments
       </Text>
       <Textarea onChange={(e) => setComment(e.target.value)} value={comment} />
-      <Button size="xs" onClick={writeComment}>
+      <Button size="xs" onClick={writeComment} marginBottom="5">
         Send
       </Button>
-      {postsArr &&
+      {!loaded && (
+        <Stack>
+          <Skeleton height="20px" />
+          <Skeleton height="20px" />
+          <Skeleton height="20px" />
+        </Stack>
+      )}
+      {loaded &&
+        postsArr &&
         postsArr.map((p) => (
           <CommentCard
             key={p.id}
