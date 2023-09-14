@@ -27,6 +27,7 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
       category,
       website,
       postalCode,
+      //@ts-ignore
       posts,
     } = selectedResource
 

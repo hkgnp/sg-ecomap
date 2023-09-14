@@ -4,7 +4,7 @@ import type { GetServerSideProps } from 'next'
 import type { Resource } from '@prisma/client'
 import { prisma } from '~/server/prisma'
 import React, { createContext } from 'react'
-import { Props, ResourceWithPosts } from '~/features/map/types'
+import { Props } from '~/features/map/types'
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const resources = await prisma.resource.findMany({
