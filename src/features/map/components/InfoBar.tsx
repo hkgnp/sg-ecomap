@@ -13,49 +13,47 @@ import { Tag } from '@opengovsg/design-system-react'
 import { InfoBarDetails } from './InfoBarDetails'
 import { Comments } from './Comments'
 
-export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
+export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
   const resources = useContext(ResourceContext)
-  //TODO: Clean this up
-  if (!resources) return <div></div>
-  const selectedResource = resources.filter((r) => r.id === id)[0]
-  if (selectedResource) {
-    const {
-      name,
-      address,
-      contactNumber,
-      email,
-      category,
-      website,
-      postalCode,
-      //@ts-ignore
-      posts,
-    } = selectedResource
+  const selectedResource = resources?.filter((r) => r.id === id)[0]
+  if (!selectedResource) return <div></div>
+  const {
+    name,
+    address,
+    contactNumber,
+    email,
+    category,
+    website,
+    postalCode,
+    posts,
+  } = selectedResource
 
-    return (
-      <Drawer placement={'right'} onClose={onClose} isOpen={isOpen}>
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerHeader borderBottomWidth="1px">
-            <Text textStyle="responsive-heading.light">{name}</Text>
-            <Tag variant="subtle" marginTop="2">
-              {category}
-            </Tag>
-          </DrawerHeader>
-          <DrawerBody>
-            <InfoBarDetails
-              address={address}
-              postalCode={postalCode}
-              website={website}
-              contactNumber={contactNumber}
-              email={email}
-            />
-            <Comments posts={posts} />
-          </DrawerBody>
-          <p>Report an error</p>
-        </DrawerContent>
-      </Drawer>
-    )
-  } else {
-    return <div></div>
-  }
+  return (
+    <>
+      {resources && selectedResource && (
+        <Drawer placement={'right'} onClose={onClose} isOpen={isOpen}>
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerHeader borderBottomWidth="1px">
+              <Text textStyle="responsive-heading.light">{name}</Text>
+              <Tag variant="subtle" marginTop="2">
+                {category}
+              </Tag>
+            </DrawerHeader>
+            <DrawerBody>
+              <InfoBarDetails
+                address={address}
+                postalCode={postalCode}
+                website={website}
+                contactNumber={contactNumber}
+                email={email}
+              />
+              <Comments posts={posts} />
+            </DrawerBody>
+            <Text>Report an error</Text>
+          </DrawerContent>
+        </Drawer>
+      )}
+    </>
+  )
 }

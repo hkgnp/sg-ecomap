@@ -12,7 +12,8 @@ export const MarkerLayer = () => {
           <MarkerObj
             key={r.id}
             id={r.id}
-            position={[r.latitude, r.longitude]}
+            latitude={r.latitude}
+            longitude={r.longitude}
           />
         ))}
     </>

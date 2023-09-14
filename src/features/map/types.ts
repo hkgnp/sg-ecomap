@@ -1,10 +1,11 @@
 import { Prisma, Resource } from '@prisma/client'
-import { type LatLngExpression, type LeafletMouseEventHandlerFn } from 'leaflet'
+import { type LeafletMouseEventHandlerFn } from 'leaflet'
 import { type Dispatch, type SetStateAction } from 'react'
 
-export interface MarkerObjProps extends Resource {
-  onOpen: LeafletMouseEventHandlerFn
-  position: LatLngExpression
+export interface MarkerObjProps {
+  id: string
+  latitude: number
+  longitude: number
 }
 
 export type DrawerContextProps = {
