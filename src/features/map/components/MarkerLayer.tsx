@@ -1,7 +1,7 @@
 import { MarkerObj } from '~/features/map/components/MarkerObj'
 import { ResourceProps } from '../types'
 
-export const MarkerLayer = (resources: ResourceProps) => {
+export const MarkerLayer = ({ resources }: ResourceProps) => {
   return (
     <>
       {resources &&
