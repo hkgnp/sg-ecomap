@@ -1,10 +1,7 @@
-import { useContext } from 'react'
-import { ResourceContext } from '~/pages/map'
+import { Resource } from '@prisma/client'
 import { MarkerObj } from '~/features/map/components/MarkerObj'
 
-export const MarkerLayer = () => {
-  const resources = useContext(ResourceContext)
-
+export const MarkerLayer = (resources: Resource[]) => {
   return (
     <>
       {resources &&

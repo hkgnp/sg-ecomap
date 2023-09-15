@@ -45,7 +45,10 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
         >
           <DrawerOverlay />
           {/*Set maxH for DrawerContent so it doesn't take up the full height on a small screen when there is long content */}
-          <DrawerContent maxH={isPortrait ? '80vh' : '100vh'}>
+          <DrawerContent
+            maxH={isPortrait ? '80vh' : '100vh'}
+            h={isPortrait ? '80vh' : '100vh'}
+          >
             <DrawerHeader borderBottomWidth="1px">
               <Flex justifyContent="space-between">
                 <Text

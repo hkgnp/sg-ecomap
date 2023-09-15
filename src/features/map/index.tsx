@@ -5,14 +5,18 @@ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import type { LatLngExpression } from 'leaflet'
 import { MarkerLayer } from '~/features/map/components/MarkerLayer'
 import { useDisclosure } from '@chakra-ui/react'
-import { createContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { type DrawerContextProps } from '~/features/map/types'
 import { InfoBar } from '~/features/map/components/InfoBar'
 import { Input } from '@opengovsg/design-system-react'
+import { ResourceContext } from '~/pages/map'
+import { Resource } from '@prisma/client'
 
 export const DrawerContext = createContext<DrawerContextProps | null>(null)
 
 const Index = () => {
+  const resources = useContext(ResourceContext)
+
   const singapore: LatLngExpression = [1.3521, 103.8198]
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [id, setId] = useState<string>('')
@@ -20,14 +24,15 @@ const Index = () => {
   return (
     <>
       <Input
-        placeholder="Enter postal code"
+        placeholder="Start searching"
         size="xs"
         width="305px"
         rounded="2xl"
         position="absolute"
         top="3"
-        right="2"
+        left="2"
         zIndex={99999}
+        onChange={(e) => filterResources(e.target.value)}
       />
       <InfoBar isOpen={isOpen} onClose={onClose} id={id} />
       <MapContainer
@@ -45,7 +50,7 @@ const Index = () => {
           }
         />
         <DrawerContext.Provider value={{ onOpen, setId }}>
-          <MarkerLayer />
+          <MarkerLayer resources={resources} />
         </DrawerContext.Provider>
       </MapContainer>
     </>

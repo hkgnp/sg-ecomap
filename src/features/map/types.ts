@@ -19,6 +19,10 @@ export type InfoBarProps = {
   id: string
 }
 
+export type ResourceProps = {
+  resources: Resource[]
+}
+
 export type Props = {
   resources: Resource[]
 }
