@@ -4,6 +4,7 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
+  Flex,
   Text,
 } from '@chakra-ui/react'
 import { type InfoBarProps } from '~/features/map/types'
@@ -12,6 +13,7 @@ import { ResourceContext } from '~/pages/map'
 import { Tag } from '@opengovsg/design-system-react'
 import { InfoBarDetails } from './InfoBarDetails'
 import { Comments } from './Comments'
+import { AiOutlineClose } from 'react-icons/ai'
 
 export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
   const resources = useContext(ResourceContext)
@@ -19,20 +21,31 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
   if (!selectedResource) return <div></div>
   const { name, address, contactNumber, email, category, website, postalCode } =
     selectedResource
+  const isPortrait = screen.orientation.type === 'portrait-primary'
 
   return (
     <>
       {resources && selectedResource && (
         <Drawer
-          placement={'right'}
+          placement={isPortrait ? 'bottom' : 'right'}
+          isFullHeight={false}
+          autoFocus={false}
           onClose={onClose}
           isOpen={isOpen}
-          autoFocus={false}
+          closeOnEsc={true}
+          closeOnOverlayClick={true}
         >
           <DrawerOverlay />
           <DrawerContent>
             <DrawerHeader borderBottomWidth="1px">
-              <Text textStyle="responsive-heading.light">{name}</Text>
+              <Flex>
+                <Text textStyle="responsive-heading.light">{name}</Text>
+                <AiOutlineClose
+                  onClick={onClose}
+                  size="30px"
+                  cursor="pointer"
+                />
+              </Flex>
               <Tag variant="subtle" marginTop="2">
                 {category}
               </Tag>
