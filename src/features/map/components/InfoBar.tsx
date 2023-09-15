@@ -44,11 +44,12 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
           closeOnOverlayClick={true}
         >
           <DrawerOverlay />
-          <DrawerContent>
+          {/*Set maxH for DrawerContent so it doesn't take up the full height on a small screen when there is long content */}
+          <DrawerContent maxH="90vh">
             <DrawerHeader borderBottomWidth="1px">
               <Flex justifyContent="space-between">
                 <Text textStyle="responsive-heading.light">{name}</Text>
-                <CloseButton onClick={onClose} />
+                <CloseButton onClick={onClose} size="sm" />
               </Flex>
               <Tag variant="subtle" marginTop="2">
                 {category}

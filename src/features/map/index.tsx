@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer } from 'react-leaflet'
+import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
@@ -8,6 +8,7 @@ import { useDisclosure } from '@chakra-ui/react'
 import { createContext, useState } from 'react'
 import { type DrawerContextProps } from '~/features/map/types'
 import { InfoBar } from '~/features/map/components/InfoBar'
+import { Input } from '@opengovsg/design-system-react'
 
 export const DrawerContext = createContext<DrawerContextProps | null>(null)
 
@@ -18,13 +19,25 @@ const Index = () => {
 
   return (
     <>
+      <Input
+        placeholder="Enter postal code"
+        size="xs"
+        width="305px"
+        rounded="2xl"
+        position="absolute"
+        top="3"
+        right="2"
+        zIndex={99999}
+      />
       <InfoBar isOpen={isOpen} onClose={onClose} id={id} />
       <MapContainer
+        zoomControl={false}
         center={singapore}
         zoom={13}
         scrollWheelZoom={false}
         style={{ position: 'fixed', height: '100vh', width: '100%' }}
       >
+        <ZoomControl position="bottomleft" />
         <TileLayer
           url={'https://www.onemap.gov.sg/maps/tiles/Default/{z}/{x}/{y}.png'}
           attribution={
