@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import { Resource } from '@prisma/client'
 import { BiGlobe, BiPhone, BiMailSend, BiMapPin } from 'react-icons/bi'
 
@@ -11,53 +11,48 @@ export const InfoBarDetails = ({
 }: Partial<Resource>) => {
   return (
     <>
-      <Flex gap="2">
-        <BiMapPin size="48px" />
-        <Text textStyle="body-2" lineHeight="2" marginBottom="2">
-          {address} S({postalCode})
-        </Text>
-      </Flex>
+      <Grid templateColumns="repeat(10, 1fr)" marginTop="3">
+        <GridItem colSpan={1}>
+          <BiMapPin />
+        </GridItem>
+        <GridItem colSpan={9}>
+          <Text textStyle="body-2">
+            {address} S({postalCode})
+          </Text>
+        </GridItem>
+      </Grid>
 
       {email && (
-        <Flex gap="2">
-          <BiMailSend size="24px" />
-          <Text
-            textStyle="body-2"
-            noOfLines={1}
-            lineHeight="2"
-            marginBottom="2"
-          >
-            {email}
-          </Text>
-        </Flex>
+        <Grid templateColumns="repeat(10, 1fr)" marginTop="3">
+          <GridItem colSpan={1}>
+            <BiMailSend />
+          </GridItem>
+          <GridItem colSpan={9}>
+            <Text textStyle="body-2">{email}</Text>
+          </GridItem>
+        </Grid>
       )}
 
       {contactNumber && (
-        <Flex gap="2">
-          <BiPhone size="24px" />
-          <Text
-            textStyle="body-2"
-            noOfLines={1}
-            lineHeight="2"
-            marginBottom="2"
-          >
-            {contactNumber}
-          </Text>
-        </Flex>
+        <Grid templateColumns="repeat(10, 1fr)" marginTop="3">
+          <GridItem colSpan={1}>
+            <BiPhone />
+          </GridItem>
+          <GridItem colSpan={9}>
+            <Text textStyle="body-2">{contactNumber}</Text>
+          </GridItem>
+        </Grid>
       )}
 
       {website && (
-        <Flex gap="2">
-          <BiGlobe size="24px" />
-          <Text
-            textStyle="body-2"
-            noOfLines={1}
-            lineHeight="2"
-            marginBottom="2"
-          >
-            {website}
-          </Text>
-        </Flex>
+        <Grid templateColumns="repeat(10, 1fr)" marginTop="3">
+          <GridItem colSpan={1}>
+            <BiGlobe />
+          </GridItem>
+          <GridItem colSpan={9}>
+            <Text textStyle="body-2">{website}</Text>
+          </GridItem>
+        </Grid>
       )}
     </>
   )

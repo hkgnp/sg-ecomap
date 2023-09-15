@@ -11,9 +11,10 @@ import {
 import { type InfoBarProps } from '~/features/map/types'
 import { useContext, useState } from 'react'
 import { ResourceContext } from '~/pages/map'
-import { Tag } from '@opengovsg/design-system-react'
+import { Button, Tag } from '@opengovsg/design-system-react'
 import { InfoBarDetails } from './InfoBarDetails'
 import { Comments } from './Comments'
+import { ResourceActions } from './ResourceActions'
 
 export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
   const resources = useContext(ResourceContext)
@@ -65,7 +66,7 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
                   marginRight="-4"
                 />
               </Flex>
-              <Tag variant="subtle" marginY="2">
+              <Tag variant="solid" marginY="2" colorScheme="success">
                 {category}
               </Tag>
               <InfoBarDetails
@@ -75,11 +76,11 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
                 contactNumber={contactNumber}
                 email={email}
               />
+              <ResourceActions id={id} />
             </DrawerHeader>
             <DrawerBody>
               <Comments id={id} />
             </DrawerBody>
-            <Text>Report an error</Text>
           </DrawerContent>
         </Drawer>
       )}

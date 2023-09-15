@@ -35,6 +35,10 @@ export type PostProps = {
   id: string
 }
 
+export type ResourceActionProps = {
+  id: string
+}
+
 export type CommentCardProps = {
   title: string | null
   content: string
