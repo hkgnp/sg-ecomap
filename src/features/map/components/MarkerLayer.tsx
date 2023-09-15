@@ -1,7 +1,7 @@
-import { Resource } from '@prisma/client'
 import { MarkerObj } from '~/features/map/components/MarkerObj'
+import { ResourceProps } from '../types'
 
-export const MarkerLayer = (resources: Resource[]) => {
+export const MarkerLayer = (resources: ResourceProps) => {
   return (
     <>
       {resources &&
