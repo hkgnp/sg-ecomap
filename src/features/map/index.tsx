@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet'
+import { MapContainer, TileLayer, useMap, ZoomControl } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
@@ -15,13 +15,15 @@ export const DrawerContext = createContext<DrawerContextProps | null>(null)
 
 const Index = () => {
   const resources = useContext(ResourceContext)
+  const singapore: LatLngExpression = [1.3521, 103.8198]
 
   const [filteredResources, setFilteredResources] = useState(resources)
-  const singapore: LatLngExpression = [1.3521, 103.8198]
+  const [currPosition, setCurrPosition] = useState<LatLngExpression>(singapore)
+
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [id, setId] = useState<string>('')
 
-  const filterResources = (e: any) => {
+  const filterResources = async (e: string) => {
     if (!resources) return
     setFilteredResources(
       resources.filter(
@@ -50,7 +52,7 @@ const Index = () => {
       <InfoBar isOpen={isOpen} onClose={onClose} id={id} />
       <MapContainer
         zoomControl={false}
-        center={singapore}
+        center={currPosition}
         zoom={13}
         scrollWheelZoom={false}
         style={{ position: 'fixed', height: '100vh', width: '100%' }}
