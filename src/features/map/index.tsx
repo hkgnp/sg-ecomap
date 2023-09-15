@@ -5,7 +5,7 @@ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import type { LatLngExpression } from 'leaflet'
 import { MarkerLayer } from '~/features/map/components/MarkerLayer'
 import { useDisclosure } from '@chakra-ui/react'
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 import { type DrawerContextProps } from '~/features/map/types'
 import { InfoBar } from '~/features/map/components/InfoBar'
 import { Input } from '@opengovsg/design-system-react'
@@ -15,7 +15,6 @@ export const DrawerContext = createContext<DrawerContextProps | null>(null)
 
 const Index = () => {
   const resources = useContext(ResourceContext)
-  if (!resources) return
 
   const singapore: LatLngExpression = [1.3521, 103.8198]
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -49,7 +48,7 @@ const Index = () => {
           }
         />
         <DrawerContext.Provider value={{ onOpen, setId }}>
-          <MarkerLayer resources={resources} />
+          {resources && <MarkerLayer resources={resources} />}
         </DrawerContext.Provider>
       </MapContainer>
     </>
