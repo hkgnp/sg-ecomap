@@ -45,17 +45,23 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
         >
           <DrawerOverlay />
           {/*Set maxH for DrawerContent so it doesn't take up the full height on a small screen when there is long content */}
-          <DrawerContent maxH={isPortrait ? '90vh' : '100vh'}>
-            <CloseButton
-              onClick={onClose}
-              size="md"
-              position="absolute"
-              right="1"
-            />
+          <DrawerContent maxH={isPortrait ? '80vh' : '100vh'}>
             <DrawerHeader borderBottomWidth="1px">
-              <Text textStyle="responsive-heading.light" fontSize="2xl">
-                {name}
-              </Text>
+              <Flex justifyContent="space-between">
+                <Text
+                  textStyle="responsive-heading.light"
+                  fontSize="2xl"
+                  lineHeight="1.2"
+                >
+                  {name}
+                </Text>
+                <CloseButton
+                  onClick={onClose}
+                  size="md"
+                  marginTop="-3"
+                  marginRight="-4"
+                />
+              </Flex>
               <Tag variant="subtle" marginY="2">
                 {category}
               </Tag>

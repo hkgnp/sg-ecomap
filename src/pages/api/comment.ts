@@ -19,7 +19,7 @@ export default async function handler(
       res.status(200).send({ result })
     } catch (e) {
       console.log(e)
-      res.status(400).send('Failed')
+      res.status(400)
     }
   } else {
     try {
@@ -37,7 +37,7 @@ export default async function handler(
       res.status(200).send({ result })
     } catch (e) {
       console.log(e)
-      res.status(400).send('Failed')
+      res.status(400).send([])
     }
   }
 }
