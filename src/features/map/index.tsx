@@ -16,9 +16,23 @@ export const DrawerContext = createContext<DrawerContextProps | null>(null)
 const Index = () => {
   const resources = useContext(ResourceContext)
 
+  const [filteredResources, setFilteredResources] = useState(resources)
   const singapore: LatLngExpression = [1.3521, 103.8198]
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [id, setId] = useState<string>('')
+
+  const filterResources = (e: any) => {
+    if (!resources) return
+    setFilteredResources(
+      resources.filter(
+        (r) =>
+          r.name.toLowerCase().includes(e.toLowerCase()) ||
+          r.category.toLowerCase().includes(e.toLowerCase()) ||
+          r.address.toLowerCase().includes(e.toLowerCase()) ||
+          r.postalCode === e
+      )
+    )
+  }
 
   return (
     <>
@@ -31,6 +45,7 @@ const Index = () => {
         top="3"
         left="2"
         zIndex={99999}
+        onChange={(e) => filterResources(e.target.value)}
       />
       <InfoBar isOpen={isOpen} onClose={onClose} id={id} />
       <MapContainer
@@ -48,7 +63,7 @@ const Index = () => {
           }
         />
         <DrawerContext.Provider value={{ onOpen, setId }}>
-          {resources && <MarkerLayer resources={resources} />}
+          {filteredResources && <MarkerLayer resources={filteredResources} />}
         </DrawerContext.Provider>
       </MapContainer>
     </>
