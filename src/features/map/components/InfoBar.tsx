@@ -1,4 +1,5 @@
 import {
+  CloseButton,
   Drawer,
   DrawerBody,
   DrawerContent,
@@ -13,11 +14,12 @@ import { ResourceContext } from '~/pages/map'
 import { Tag } from '@opengovsg/design-system-react'
 import { InfoBarDetails } from './InfoBarDetails'
 import { Comments } from './Comments'
-import { AiOutlineClose } from 'react-icons/ai'
 
 export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
   const resources = useContext(ResourceContext)
-  const [isPortrait, setIsPortrait] = useState<boolean>(false)
+  const [isPortrait, setIsPortrait] = useState<boolean>(
+    screen.orientation.type === 'portrait-primary' ? true : false
+  )
 
   screen.orientation.addEventListener('change', (event: Event) => {
     const type = (event.target as ScreenOrientation).type
@@ -44,13 +46,9 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
           <DrawerOverlay />
           <DrawerContent>
             <DrawerHeader borderBottomWidth="1px">
-              <Flex>
+              <Flex justifyContent="space-between">
                 <Text textStyle="responsive-heading.light">{name}</Text>
-                <AiOutlineClose
-                  onClick={onClose}
-                  size="30px"
-                  cursor="pointer"
-                />
+                <CloseButton onClick={onClose} />
               </Flex>
               <Tag variant="subtle" marginTop="2">
                 {category}
