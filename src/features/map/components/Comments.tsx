@@ -61,7 +61,7 @@ export const Comments = ({ id }: PostProps) => {
         placeholder="Be professional and courteous."
       />
       <Flex justifyContent="end">
-        <Button size="xs" onClick={writeComment} marginBottom="5">
+        <Button size="xs" onClick={writeComment} marginBottom="2">
           Send
         </Button>
       </Flex>

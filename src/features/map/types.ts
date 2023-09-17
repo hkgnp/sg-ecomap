@@ -6,6 +6,7 @@ export interface MarkerObjProps {
   id: string
   latitude: number
   longitude: number
+  category: string
 }
 
 export type DrawerContextProps = {

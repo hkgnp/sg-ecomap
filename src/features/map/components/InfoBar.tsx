@@ -11,7 +11,7 @@ import {
 import { type InfoBarProps } from '~/features/map/types'
 import { useContext, useState } from 'react'
 import { ResourceContext } from '~/pages/map'
-import { Button, Tag } from '@opengovsg/design-system-react'
+import { Tag } from '@opengovsg/design-system-react'
 import { InfoBarDetails } from './InfoBarDetails'
 import { Comments } from './Comments'
 import { ResourceActions } from './ResourceActions'

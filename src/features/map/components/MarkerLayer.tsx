@@ -11,6 +11,7 @@ export const MarkerLayer = ({ resources }: ResourceProps) => {
             id={r.id}
             latitude={r.latitude}
             longitude={r.longitude}
+            category={r.category}
           />
         ))}
     </>

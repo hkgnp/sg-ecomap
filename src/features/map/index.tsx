@@ -4,12 +4,12 @@ import 'leaflet-defaulticon-compatibility'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import type { LatLngExpression } from 'leaflet'
 import { MarkerLayer } from '~/features/map/components/MarkerLayer'
-import { Flex, useDisclosure } from '@chakra-ui/react'
+import { useDisclosure } from '@chakra-ui/react'
 import { createContext, useContext, useState } from 'react'
 import { type DrawerContextProps } from '~/features/map/types'
 import { InfoBar } from '~/features/map/components/InfoBar'
-import { Button, Input } from '@opengovsg/design-system-react'
 import { ResourceContext } from '~/pages/map'
+import { SearchFilterUtilities } from './components/SearchFilterUtilities'
 
 export const DrawerContext = createContext<DrawerContextProps | null>(null)
 
@@ -37,34 +37,7 @@ const Index = () => {
 
   return (
     <>
-      <Flex
-        justifyContent="space-between"
-        direction="row"
-        gap="2"
-        position="absolute"
-        top="2"
-        left="2"
-      >
-        <Input
-          placeholder="Start searching"
-          size="xs"
-          width="210px"
-          rounded="2xl"
-          borderColor="teal"
-          zIndex={99999}
-          onChange={(e) => filterResources(e.target.value)}
-        />
-        <Button
-          bgColor="teal"
-          border="none"
-          size="xs"
-          fontSize="xs"
-          rounded="2xl"
-          zIndex={99999}
-        >
-          + Resource
-        </Button>
-      </Flex>
+      <SearchFilterUtilities />
 
       <InfoBar isOpen={isOpen} onClose={onClose} id={id} />
 
