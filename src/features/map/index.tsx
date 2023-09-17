@@ -37,7 +37,7 @@ const Index = () => {
 
   return (
     <>
-      <SearchFilterUtilities />
+      <SearchFilterUtilities filterResources={filterResources} />
 
       <InfoBar isOpen={isOpen} onClose={onClose} id={id} />
 
