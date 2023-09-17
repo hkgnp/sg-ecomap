@@ -23,7 +23,6 @@ export const SearchFilterUtilities = () => {
           rounded="2xl"
           borderColor="teal"
           zIndex={99999}
-          onChange={(e) => filterResources(e.target.value)}
         />
       </ScaleFade>
       <Button
