@@ -46,3 +46,7 @@ export type CommentCardProps = {
   authorName: string | null
   updatedAt: Date
 }
+
+export type SearchFilterUtilsProps = {
+  filterResources: Function
+}

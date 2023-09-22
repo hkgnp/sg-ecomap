@@ -1,12 +1,44 @@
 import { Flex } from '@chakra-ui/react'
 import { Input, Button } from '@opengovsg/design-system-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PiMagnifyingGlassBold } from 'react-icons/pi'
+import { SearchFilterUtilsProps } from '../types'
 
 //@ts-ignore
-export const SearchFilterUtilities = ({ filterResources }: any) => {
+export const SearchFilterUtilities = ({
+  filterResources,
+}: SearchFilterUtilsProps) => {
   const [inputOpen, setInputOpen] = useState(false)
   const [filterOpen, setFilterOpen] = useState(false)
+
+  const handleToggle = (type: string) => {
+    switch (type) {
+      case 'input':
+        if (!inputOpen && filterOpen) {
+          setFilterOpen(false)
+          setInputOpen(true)
+        } else if (!inputOpen) {
+          console.log('hello')
+          setInputOpen(true)
+        } else {
+          console.log('hello2')
+          setInputOpen(false)
+        }
+        return
+      case 'filter':
+        if (!filterOpen && inputOpen) {
+          setInputOpen(false)
+          setFilterOpen(true)
+        } else if (!filterOpen) {
+          setFilterOpen(true)
+        } else {
+          setFilterOpen(false)
+        }
+        return
+      default:
+        return
+    }
+  }
 
   return (
     <Flex
@@ -18,7 +50,7 @@ export const SearchFilterUtilities = ({ filterResources }: any) => {
       maxWidth="100vw"
     >
       <Button
-        onClick={() => (inputOpen ? setInputOpen(false) : setInputOpen(true))}
+        onClick={() => handleToggle('input')}
         variant="solid"
         size="xs"
         fontSize="xs"
@@ -39,9 +71,7 @@ export const SearchFilterUtilities = ({ filterResources }: any) => {
       />
 
       <Button
-        onClick={() =>
-          filterOpen ? setFilterOpen(false) : setFilterOpen(true)
-        }
+        onClick={() => handleToggle('filter')}
         variant="solid"
         size="xs"
         fontSize="xs"
