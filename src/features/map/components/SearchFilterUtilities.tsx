@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react'
 import { Input, Button } from '@opengovsg/design-system-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { PiMagnifyingGlassBold } from 'react-icons/pi'
 import { SearchFilterUtilsProps } from '../types'
 
@@ -8,26 +8,24 @@ import { SearchFilterUtilsProps } from '../types'
 export const SearchFilterUtilities = ({
   filterResources,
 }: SearchFilterUtilsProps) => {
-  const [inputOpen, setInputOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const [filterOpen, setFilterOpen] = useState(false)
 
   const handleToggle = (type: string) => {
     switch (type) {
-      case 'input':
-        if (!inputOpen && filterOpen) {
+      case 'search':
+        if (!searchOpen && filterOpen) {
           setFilterOpen(false)
-          setInputOpen(true)
-        } else if (!inputOpen) {
-          console.log('hello')
-          setInputOpen(true)
+          setSearchOpen(true)
+        } else if (!searchOpen) {
+          setSearchOpen(true)
         } else {
-          console.log('hello2')
-          setInputOpen(false)
+          setSearchOpen(false)
         }
         return
       case 'filter':
-        if (!filterOpen && inputOpen) {
-          setInputOpen(false)
+        if (!filterOpen && searchOpen) {
+          setSearchOpen(false)
           setFilterOpen(true)
         } else if (!filterOpen) {
           setFilterOpen(true)
@@ -50,7 +48,7 @@ export const SearchFilterUtilities = ({
       maxWidth="100vw"
     >
       <Button
-        onClick={() => handleToggle('input')}
+        onClick={() => handleToggle('search')}
         variant="solid"
         size="xs"
         fontSize="xs"
@@ -60,7 +58,7 @@ export const SearchFilterUtilities = ({
         <PiMagnifyingGlassBold />
       </Button>
       <Input
-        display={inputOpen ? 'block' : 'none'}
+        display={searchOpen ? 'block' : 'none'}
         onChange={(e) => filterResources(e.target.value)}
         placeholder="Start searching"
         size="xs"
