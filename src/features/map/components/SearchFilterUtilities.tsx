@@ -1,5 +1,5 @@
-import { Flex } from '@chakra-ui/react'
-import { Input, Button } from '@opengovsg/design-system-react'
+import { Box, Flex } from '@chakra-ui/react'
+import { Input, Button, SingleSelect } from '@opengovsg/design-system-react'
 import { useState } from 'react'
 import { PiMagnifyingGlassBold } from 'react-icons/pi'
 import { SearchFilterUtilsProps } from '../types'
@@ -7,9 +7,16 @@ import { SearchFilterUtilsProps } from '../types'
 //@ts-ignore
 export const SearchFilterUtilities = ({
   filterResources,
+  categories,
 }: SearchFilterUtilsProps) => {
   const [searchOpen, setSearchOpen] = useState(false)
   const [filterOpen, setFilterOpen] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState<string>('')
+
+  const handleFilterCategory = (value: string) => {
+    setSelectedCategory(value)
+    filterResources(value)
+  }
 
   const handleToggle = (type: string) => {
     switch (type) {
@@ -67,7 +74,6 @@ export const SearchFilterUtilities = ({
         borderColor="teal"
         zIndex={99999}
       />
-
       <Button
         onClick={() => handleToggle('filter')}
         variant="solid"
@@ -76,17 +82,22 @@ export const SearchFilterUtilities = ({
         rounded="2xl"
         zIndex={99999}
       >
-        F
+        Filter
       </Button>
-      <Input
+      <Box
         display={filterOpen ? 'block' : 'none'}
-        placeholder="Filter"
-        size="xs"
-        width="100px"
         rounded="2xl"
-        borderColor="teal"
         zIndex={99999}
-      />
+        maxW="60"
+      >
+        <SingleSelect
+          value={selectedCategory}
+          items={categories}
+          name="categories"
+          onChange={handleFilterCategory}
+          size="xs"
+        />
+      </Box>
     </Flex>
   )
 }

@@ -15,6 +15,7 @@ export const DrawerContext = createContext<DrawerContextProps | null>(null)
 
 const Index = () => {
   const resources = useContext(ResourceContext)
+  const categories = [...new Set(resources?.map((i) => i.category))]
   const singapore: LatLngExpression = [1.3521, 103.8198]
 
   const [filteredResources, setFilteredResources] = useState(resources)
@@ -37,7 +38,10 @@ const Index = () => {
 
   return (
     <>
-      <SearchFilterUtilities filterResources={filterResources} />
+      <SearchFilterUtilities
+        filterResources={filterResources}
+        categories={categories}
+      />
 
       <InfoBar isOpen={isOpen} onClose={onClose} id={id} />
 

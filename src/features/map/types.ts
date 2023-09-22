@@ -49,4 +49,5 @@ export type CommentCardProps = {
 
 export type SearchFilterUtilsProps = {
   filterResources: Function
+  categories: string[]
 }
