@@ -1,4 +1,4 @@
-import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
+import { Grid, GridItem, Text } from '@chakra-ui/react'
 import { Resource } from '@prisma/client'
 import { BiGlobe, BiPhone, BiMailSend, BiMapPin } from 'react-icons/bi'
 

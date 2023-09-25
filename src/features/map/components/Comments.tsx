@@ -3,7 +3,6 @@ import { Button, Textarea } from '@opengovsg/design-system-react'
 import { useEffect, useState } from 'react'
 import { PostProps, PostWithAuthor } from '../types'
 import { CommentCard } from './CommentCard'
-import { AiOutlineSend } from 'react-icons/ai'
 
 export const Comments = ({ id }: PostProps) => {
   const [loaded, setLoaded] = useState<boolean>(false)

@@ -15,11 +15,13 @@ export const DrawerContext = createContext<DrawerContextProps | null>(null)
 
 const Index = () => {
   const resources = useContext(ResourceContext)
+  // Get unique categories
   const categories = [...new Set(resources?.map((i) => i.category))]
   const singapore: LatLngExpression = [1.3521, 103.8198]
 
   const [filteredResources, setFilteredResources] = useState(resources)
 
+  // For drawer
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [id, setId] = useState<string>('')
 

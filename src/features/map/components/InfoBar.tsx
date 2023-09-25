@@ -1,27 +1,27 @@
 import {
-  CloseButton,
+  Box,
   Drawer,
   DrawerBody,
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  Flex,
-  Text,
 } from '@chakra-ui/react'
 import { type InfoBarProps } from '~/features/map/types'
 import { useContext, useState } from 'react'
 import { ResourceContext } from '~/pages/map'
-import { Tag } from '@opengovsg/design-system-react'
+import { Button, Tag } from '@opengovsg/design-system-react'
 import { InfoBarDetails } from './InfoBarDetails'
 import { Comments } from './Comments'
 import { ResourceActions } from './ResourceActions'
+import { DrawerHeaderDetails } from './DrawerHeaderDetails'
 
 export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
   const resources = useContext(ResourceContext)
+  const [isEditing, setIsEditing] = useState(false)
+
   const [isPortrait, setIsPortrait] = useState<boolean>(
     screen.orientation.type === 'portrait-primary' ? true : false
   )
-
   screen.orientation.addEventListener('change', (event: Event) => {
     const type = (event.target as ScreenOrientation).type
     type === 'portrait-primary' ? setIsPortrait(true) : setIsPortrait(false)
@@ -51,32 +51,28 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
             h={isPortrait ? '80vh' : '100vh'}
           >
             <DrawerHeader borderBottomWidth="1px">
-              <Flex justifyContent="space-between">
-                <Text
-                  textStyle="responsive-heading.light"
-                  fontSize="2xl"
-                  lineHeight="1.2"
-                >
-                  {name}
-                </Text>
-                <CloseButton
-                  onClick={onClose}
-                  size="md"
-                  marginTop="-3"
-                  marginRight="-4"
-                />
-              </Flex>
-              <Tag variant="solid" marginY="2" colorScheme="success">
-                {category}
-              </Tag>
-              <InfoBarDetails
-                address={address}
-                postalCode={postalCode}
-                website={website}
-                contactNumber={contactNumber}
-                email={email}
+              <DrawerHeaderDetails
+                name={name}
+                category={category}
+                onClose={onClose}
               />
-              <ResourceActions id={id} />
+              {!isEditing && (
+                <>
+                  <InfoBarDetails
+                    address={address}
+                    postalCode={postalCode}
+                    website={website}
+                    contactNumber={contactNumber}
+                    email={email}
+                  />
+                  <ResourceActions id={id} setIsEditing={setIsEditing} />
+                </>
+              )}
+              {isEditing && (
+                <Box>
+                  <Button onClick={() => setIsEditing(false)}>Done</Button>
+                </Box>
+              )}
             </DrawerHeader>
             <DrawerBody>
               <Comments id={id} />

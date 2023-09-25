@@ -1,6 +1,6 @@
 import { Prisma, Resource } from '@prisma/client'
 import { type LeafletMouseEventHandlerFn } from 'leaflet'
-import { type Dispatch, type SetStateAction } from 'react'
+import { MouseEventHandler, type Dispatch, type SetStateAction } from 'react'
 
 export interface MarkerObjProps {
   id: string
@@ -38,6 +38,7 @@ export type PostProps = {
 
 export type ResourceActionProps = {
   id: string
+  setIsEditing: Function
 }
 
 export type CommentCardProps = {
@@ -50,4 +51,10 @@ export type CommentCardProps = {
 export type SearchFilterUtilsProps = {
   filterResources: Function
   categories: string[]
+}
+
+export type DrawerHeaderDetailsProps = {
+  name: string
+  category: string
+  onClose: MouseEventHandler
 }
