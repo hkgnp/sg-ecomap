@@ -5,12 +5,24 @@ import { useDisclosure } from "@chakra-ui/react";
 import { SearchFilterUtilities } from "./SearchFilterUtilities";
 import { Resource } from "@prisma/client";
 import { InfoBar } from "./infobar/InfoBar";
+import useSWR from "swr";
 
 export const DrawerContext = createContext<DrawerContextProps | null>(null);
 export const ResourceContext = createContext<Resource[] | null>(null);
 
+// @ts-ignore
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const useResources = () => {
+  const { data, error, isLoading } = useSWR(`/api/resources`, fetcher);
+  return {
+    resources: data as Resource[],
+    isLoading,
+    isError: error,
+  };
+};
+
 const UtilityLayer = () => {
-  const [resources, setResources] = useState<Resource[]>([]);
+  const { resources, isLoading, isError } = useResources();
   const [filteredResources, setFilteredResources] = useState<Resource[]>();
   const [categories, setCategories] = useState<string[]>([]);
 
@@ -19,21 +31,11 @@ const UtilityLayer = () => {
   const [id, setId] = useState<string>("");
 
   useEffect(() => {
-    (async () => {
-      const res = await fetch("/api/resources");
-      const resources = await res.json();
-      if (!resources) return null;
-      setResources(resources);
-
-      const categories = [
-        ...new Set(resources.map((i: { category: string }) => i.category)),
-      ];
-      setCategories(categories as string[]);
-    })();
-  }, []);
-
-  useEffect(() => {
-    setFilteredResources(resources);
+    setFilteredResources(resources as Resource[]);
+    const categories = [
+      ...new Set(resources.map((i: { category: string }) => i.category)),
+    ];
+    setCategories(categories as string[]);
   }, [resources]);
 
   const filterResources = async (e: string) => {
