@@ -7,6 +7,7 @@ import useSWR from "swr";
 
 export const Comments = ({ id }: PostProps) => {
   const [comment, setComment] = useState<string>();
+  const [postingComments, setPostingComments] = useState(false);
 
   // @ts-ignore
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -27,6 +28,7 @@ export const Comments = ({ id }: PostProps) => {
 
   const writeComment = async () => {
     if (!comment || comment.length == 0) return;
+    setPostingComments(true);
     const res = await fetch("/api/comments", {
       method: "POST",
       body: JSON.stringify({
@@ -37,6 +39,7 @@ export const Comments = ({ id }: PostProps) => {
     const newComment = await res.json();
     mutate([...comments, newComment]);
     setComment("");
+    setPostingComments(false);
   };
 
   return (
@@ -55,7 +58,7 @@ export const Comments = ({ id }: PostProps) => {
       />
       <Flex justifyContent="end">
         <Button size="xs" onClick={writeComment} marginBottom="2">
-          {isLoading && <Spinner ml="-1" mr="1" />}Send
+          {postingComments && <Spinner ml="-1" mr="1" />}Send
         </Button>
       </Flex>
       {isLoading && (
