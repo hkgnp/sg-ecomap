@@ -22,24 +22,16 @@ const useResources = () => {
 };
 
 const UtilityLayer = () => {
-  const { resources, isLoading, isError } = useResources();
-  if (isError) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
-
   const [filteredResources, setFilteredResources] = useState<Resource[]>();
-  const [categories, setCategories] = useState<string[]>([]);
-
   // For drawer
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [id, setId] = useState<string>("");
 
-  useEffect(() => {
-    setFilteredResources(resources as Resource[]);
-    const categories = [
-      ...new Set(resources.map((i: { category: string }) => i.category)),
-    ];
-    setCategories(categories as string[]);
-  }, [resources]);
+  const { resources, isLoading, isError } = useResources();
+
+  const categories = [
+    ...new Set(resources.map((i: { category: string }) => i.category)),
+  ];
 
   const filterResources = async (e: string) => {
     setFilteredResources(
@@ -60,9 +52,11 @@ const UtilityLayer = () => {
         categories={categories}
       />
       <InfoBar isOpen={isOpen} onClose={onClose} id={id} />
-      <DrawerContext.Provider value={{ onOpen, setId }}>
-        {filteredResources && <MarkerLayer resources={filteredResources} />}
-      </DrawerContext.Provider>
+      {!isLoading && (
+        <DrawerContext.Provider value={{ onOpen, setId }}>
+          {filteredResources && <MarkerLayer resources={filteredResources} />}
+        </DrawerContext.Provider>
+      )}
     </ResourceContext.Provider>
   );
 };
