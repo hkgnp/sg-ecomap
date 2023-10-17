@@ -10,28 +10,34 @@ import useSWR from "swr";
 export const DrawerContext = createContext<DrawerContextProps | null>(null);
 export const ResourceContext = createContext<Resource[] | null>(null);
 
-// @ts-ignore
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
-const useResources = () => {
-  const { data, error, isLoading } = useSWR(`/api/resources`, fetcher);
-  return {
-    resources: data as Resource[],
-    isLoading,
-    isError: error,
-  };
-};
-
 const UtilityLayer = () => {
   const [filteredResources, setFilteredResources] = useState<Resource[]>();
+  const [categories, setCategories] = useState<string[]>([]);
   // For drawer
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [id, setId] = useState<string>("");
 
+  // @ts-ignore
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const useResources = () => {
+    const { data, error, isLoading } = useSWR(`/api/resources`, fetcher);
+    return {
+      resources: data as Resource[],
+      isLoading,
+      isError: error,
+    };
+  };
+
   const { resources, isLoading, isError } = useResources();
 
-  const categories = [
-    ...new Set(resources.map((i: { category: string }) => i.category)),
-  ];
+  useEffect(() => {
+    if (!isLoading) {
+      setFilteredResources(resources);
+      setCategories([
+        ...new Set(resources.map((i: { category: string }) => i.category)),
+      ]);
+    }
+  }, [resources]);
 
   const filterResources = async (e: string) => {
     setFilteredResources(
@@ -52,11 +58,10 @@ const UtilityLayer = () => {
         categories={categories}
       />
       <InfoBar isOpen={isOpen} onClose={onClose} id={id} />
-      {!isLoading && (
-        <DrawerContext.Provider value={{ onOpen, setId }}>
-          {filteredResources && <MarkerLayer resources={filteredResources} />}
-        </DrawerContext.Provider>
-      )}
+      <DrawerContext.Provider value={{ onOpen, setId }}>
+        {filteredResources && <MarkerLayer resources={filteredResources} />}
+      </DrawerContext.Provider>
+      )
     </ResourceContext.Provider>
   );
 };
