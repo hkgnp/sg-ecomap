@@ -20,6 +20,9 @@ dependencies:
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
+  inter-ui:
+    specifier: ^3.19.3
+    version: 3.19.3
   leaflet:
     specifier: ^1.9.4
     version: 1.9.4
