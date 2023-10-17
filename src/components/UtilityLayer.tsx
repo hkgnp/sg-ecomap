@@ -23,6 +23,9 @@ const useResources = () => {
 
 const UtilityLayer = () => {
   const { resources, isLoading, isError } = useResources();
+  if (isError) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
+
   const [filteredResources, setFilteredResources] = useState<Resource[]>();
   const [categories, setCategories] = useState<string[]>([]);
 
