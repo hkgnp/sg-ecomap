@@ -1,6 +1,6 @@
 import { CloseButton, Flex, Text } from "@chakra-ui/react";
 import { Tag } from "@opengovsg/design-system-react";
-import { DrawerHeaderDetailsProps } from "./types";
+import { DrawerHeaderDetailsProps } from "../types";
 
 export const DrawerHeaderDetails = ({
   name,

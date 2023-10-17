@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { CommentCardProps } from "./types";
+import { CommentCardProps } from "../../types";
 import {
   Box,
   Card,
