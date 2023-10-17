@@ -26,26 +26,13 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env.local
 .env.development.local
-.env.test.local
-.env.production.local
+.env*.local
+.env
 
 # vercel
 .vercel
 
-*.db
-*.db-journal
-
-
-# testing
-playwright/test-results
-
-# env
-.env
-.env.test
-
-# storybook
-build-storybook.log
-
-.idea
+# typescript
+*.tsbuildinfo
+next-env.d.ts

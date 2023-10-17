@@ -1,9 +1,0 @@
-/* Safari bug fix for #8068. */
-@supports (-webkit-touch-callout: none) {
-  .leaflet-control-container .leaflet-top,
-  .leaflet-control-container .leaflet-bottom {
-		position: fixed;
-		transform: translate3d(0, 0, 0) !important;
-    will-change: transform !important;
-  }
-}
