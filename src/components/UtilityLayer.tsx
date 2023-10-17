@@ -1,11 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 import { MarkerLayer } from "./markers/MarkerLayer";
 import { DrawerContextProps } from "./types";
-import { useDisclosure } from "@chakra-ui/react";
+import { Alert, AlertIcon, useDisclosure } from "@chakra-ui/react";
 import { SearchFilterUtilities } from "./SearchFilterUtilities";
 import { Resource } from "@prisma/client";
 import { InfoBar } from "./infobar/InfoBar";
 import useSWR from "swr";
+import { Spinner } from "@opengovsg/design-system-react";
 
 export const DrawerContext = createContext<DrawerContextProps | null>(null);
 export const ResourceContext = createContext<Resource[] | null>(null);
@@ -53,6 +54,12 @@ const UtilityLayer = () => {
 
   return (
     <ResourceContext.Provider value={resources}>
+      {isLoading && (
+        <Alert status="info" zIndex={999999}>
+          <Spinner mr="1" />
+          Loading Resources...
+        </Alert>
+      )}
       <SearchFilterUtilities
         filterResources={filterResources}
         categories={categories}

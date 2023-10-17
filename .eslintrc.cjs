@@ -1,47 +1,35 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const path = require("path");
-
-/** @type {import("eslint").Linter.Config} */
 const config = {
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+  ],
+  overrides: [
+    {
+      env: {
+        node: true,
+      },
+      files: [".eslintrc.{js,cjs}"],
+      parserOptions: {
+        sourceType: "script",
+      },
+    },
+  ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: path.join(__dirname, "tsconfig.json"),
+    ecmaVersion: "latest",
+    sourceType: "module",
   },
   plugins: ["@typescript-eslint", "prettier"],
-  extends: [
-    "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:prettier/recommended",
-    "plugin:storybook/recommended",
-  ],
+  ignorePatterns: ["!.*", "dist", "node_modules"],
   rules: {
-    // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-    "@typescript-eslint/consistent-type-imports": [
-      "warn",
-      {
-        prefer: "type-imports",
-        fixStyle: "inline-type-imports",
-      },
-    ],
-    "react/prop-types": "off",
-    "react/react-in-jsx-scope": "off",
-    "no-restricted-imports": [
-      "error",
-      {
-        paths: [
-          {
-            name: "react",
-            importNames: ["Suspense"],
-            message:
-              "Please use Suspense from /components instead. Default React 18 Suspense is not supported for SSR",
-          },
-        ],
-      },
-    ],
-    "@typescript-eslint/no-floating-promises": "error",
+    "@typescript-eslint/ban-ts-comment": "off",
     "prettier/prettier": "error",
+    "comma-dangle": ["error", "always-multiline"],
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
@@ -51,4 +39,5 @@ const config = {
     ],
   },
 };
+
 module.exports = config;

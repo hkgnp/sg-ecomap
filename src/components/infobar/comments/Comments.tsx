@@ -1,6 +1,6 @@
 import { Flex, Skeleton, Stack, Text } from "@chakra-ui/react";
-import { Button, Textarea } from "@opengovsg/design-system-react";
-import { ChangeEvent, useEffect, useState } from "react";
+import { Button, Spinner, Textarea } from "@opengovsg/design-system-react";
+import { ChangeEvent, useState } from "react";
 import { CommentCard } from "./CommentCard";
 import { PostProps, PostWithAuthor } from "../../types";
 import useSWR from "swr";
@@ -55,7 +55,7 @@ export const Comments = ({ id }: PostProps) => {
       />
       <Flex justifyContent="end">
         <Button size="xs" onClick={writeComment} marginBottom="2">
-          Send
+          {isLoading && <Spinner ml="-1" mr="1" />}Send
         </Button>
       </Flex>
       {isLoading && (
