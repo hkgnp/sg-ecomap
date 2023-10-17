@@ -3,47 +3,39 @@ import { Button, Textarea } from "@opengovsg/design-system-react";
 import { ChangeEvent, useEffect, useState } from "react";
 import { CommentCard } from "./CommentCard";
 import { PostProps, PostWithAuthor } from "../../types";
+import useSWR from "swr";
 
 export const Comments = ({ id }: PostProps) => {
-  const [loaded, setLoaded] = useState<boolean>(false);
-  const [postsArr, setPostsArr] = useState<PostWithAuthor[]>();
   const [comment, setComment] = useState<string>();
 
-  const fetchComments = async () => {
-    const response = await fetch(
-      "/api/comments?" +
-        new URLSearchParams({
-          id,
-        }),
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
+  // @ts-ignore
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const useComments = () => {
+    const { data, error, isLoading, mutate } = useSWR(
+      `/api/comments?${new URLSearchParams({ id })}`,
+      fetcher,
     );
-    const { result } = await response.json();
-    setPostsArr(result);
-    // TODO Skeleton can be cleaner
-    setLoaded(true);
+    return {
+      comments: data as PostWithAuthor[],
+      isLoading,
+      isError: error,
+      mutate: mutate,
+    };
   };
 
-  useEffect(() => {
-    (async () => {
-      await fetchComments();
-    })();
-  }, []);
+  const { comments, isLoading, mutate } = useComments();
 
   const writeComment = async () => {
     if (!comment || comment.length == 0) return;
-    setLoaded(false);
-    await fetch("/api/comments", {
+    const res = await fetch("/api/comments", {
       method: "POST",
       body: JSON.stringify({
         content: comment,
         resourceId: id,
       }),
     });
-    await fetchComments();
+    const newComment = await res.json();
+    mutate([...comments, newComment]);
     setComment("");
   };
 
@@ -66,16 +58,15 @@ export const Comments = ({ id }: PostProps) => {
           Send
         </Button>
       </Flex>
-      {!loaded && (
+      {isLoading && (
         <Stack>
           <Skeleton height="20px" />
           <Skeleton height="20px" />
           <Skeleton height="20px" />
         </Stack>
       )}
-      {loaded &&
-        postsArr &&
-        postsArr.map((p) => (
+      {!isLoading &&
+        comments.map((p) => (
           <CommentCard
             key={p.id}
             authorName={p.author.name}

@@ -15,8 +15,11 @@ export default async function handler(
           authorId: "clmhq8wsc00009kazr0fy1phs",
           resourceId: resourceId,
         },
+        include: {
+          author: true,
+        },
       });
-      res.status(200).send({ result });
+      res.status(200).send(result);
     } catch (e) {
       console.log(e);
       res.status(400).send({ error: "Error saving comment" });
@@ -34,7 +37,7 @@ export default async function handler(
           author: true,
         },
       });
-      res.status(200).send({ result });
+      res.status(200).send(result);
     } catch (e) {
       console.log(e);
       res.status(400).send([]);
