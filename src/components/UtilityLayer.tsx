@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { MarkerLayer } from "./markers/MarkerLayer";
 import { DrawerContextProps } from "./types";
-import { Alert, AlertIcon, useDisclosure } from "@chakra-ui/react";
+import { Alert, useDisclosure } from "@chakra-ui/react";
 import { SearchFilterUtilities } from "./SearchFilterUtilities";
 import { Resource } from "@prisma/client";
 import { InfoBar } from "./infobar/InfoBar";
