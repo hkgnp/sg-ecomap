@@ -13,3 +13,8 @@ export default async function handler(
     res.status(400).send([]);
   }
 }
+
+export const getResources = async () => {
+  const result = await prisma.resource.findMany();
+  return result;
+};

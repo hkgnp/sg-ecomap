@@ -13,7 +13,8 @@ import { InfoBarDetails } from "./InfoBarDetails";
 import { Comments } from "./comments/Comments";
 import { ResourceActions } from "./ResourceActions";
 import { DrawerHeaderDetails } from "../drawer/DrawerHeaderDetails";
-import { ResourceContext } from "../UtilityLayer";
+import { ResourceContext } from "~/src/pages";
+//import { ResourceContext } from "../UtilityLayer";
 
 export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
   const resources = useContext(ResourceContext);
