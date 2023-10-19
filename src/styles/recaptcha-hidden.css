@@ -1,0 +1,4 @@
+/* Move reCAPTCHA v3 badge in front */
+.grecaptcha-badge {
+  z-index: 999;
+}

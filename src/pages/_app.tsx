@@ -3,6 +3,7 @@ import { ThemeProvider } from "@opengovsg/design-system-react";
 import { theme } from "../theme";
 import "inter-ui/inter.css";
 import "../styles/leaflet-control-hack.css";
+import "../styles/recaptcha-hidden.css";
 import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {

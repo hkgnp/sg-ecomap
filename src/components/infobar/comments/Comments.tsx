@@ -1,12 +1,11 @@
-import { Flex, Skeleton, Stack, Text } from "@chakra-ui/react";
-import { Button, Spinner, Textarea } from "@opengovsg/design-system-react";
-import { ChangeEvent, useState } from "react";
+import { Skeleton, Stack, Text } from "@chakra-ui/react";
+import { useState } from "react";
 import { CommentCard } from "./CommentCard";
 import { PostProps, PostWithAuthor } from "../../types";
 import useSWR from "swr";
+import WriteComments from "./WriteComments";
 
 export const Comments = ({ id }: PostProps) => {
-  const [comment, setComment] = useState<string>();
   const [postingComments, setPostingComments] = useState(false);
 
   // @ts-ignore
@@ -26,41 +25,12 @@ export const Comments = ({ id }: PostProps) => {
 
   const { comments, isLoading, mutate } = useComments();
 
-  const writeComment = async () => {
-    if (!comment || comment.length == 0) return;
-    setPostingComments(true);
-    const res = await fetch("/api/comments", {
-      method: "POST",
-      body: JSON.stringify({
-        content: comment,
-        resourceId: id,
-      }),
-    });
-    const newComment = await res.json();
-    mutate([...comments, newComment]);
-    setComment("");
-    setPostingComments(false);
-  };
-
   return (
     <>
       <Text textStyle="h6" marginTop="5">
         Comments
       </Text>
-      <Textarea
-        onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-          setComment(e.target.value)
-        }
-        value={comment}
-        marginBottom="1"
-        size="sm"
-        placeholder="Be professional and courteous."
-      />
-      <Flex justifyContent="end">
-        <Button size="xs" onClick={writeComment} marginBottom="2">
-          {postingComments && <Spinner ml="-1" mr="1" />}Send
-        </Button>
-      </Flex>
+      <WriteComments id={id} comments={comments} mutate={mutate} />
       {isLoading && (
         <Stack>
           <Skeleton height="20px" />
