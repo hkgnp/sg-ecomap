@@ -15,7 +15,7 @@ import { ResourceActions } from "./ResourceActions";
 import { DrawerHeaderDetails } from "../drawer/DrawerHeaderDetails";
 import { ResourceContext } from "~/src/pages";
 
-export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps): JSX.Element => {
+export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
   const resources = useContext(ResourceContext);
   const [isEditing, setIsEditing] = useState(false);
 

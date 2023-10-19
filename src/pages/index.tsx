@@ -4,7 +4,7 @@ import type { InferGetStaticPropsType, GetStaticProps } from "next";
 import { getResources } from "./api/resources";
 import { createContext } from "react";
 
-export const getStaticProps = (async (context) => {
+export const getStaticProps = (async () => {
   const resources = await getResources();
   return { props: { resources } };
 }) satisfies GetStaticProps<{

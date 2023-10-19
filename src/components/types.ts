@@ -1,4 +1,4 @@
-import { Post, Prisma, Resource } from "@prisma/client";
+import { Post, Resource } from "@prisma/client";
 import { type LeafletMouseEventHandlerFn } from "leaflet";
 import { MouseEventHandler, type Dispatch, type SetStateAction } from "react";
 import { KeyedMutator } from "swr";
