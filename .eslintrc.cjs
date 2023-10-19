@@ -3,11 +3,7 @@ const config = {
     browser: true,
     es2021: true,
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-  ],
+  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   overrides: [
     {
       env: {
@@ -24,7 +20,7 @@ const config = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["@typescript-eslint", "prettier"],
+  plugins: ["@typescript-eslint"],
   ignorePatterns: ["!.*", "dist", "node_modules"],
   rules: {
     "@typescript-eslint/ban-ts-comment": "off",
