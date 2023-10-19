@@ -17,15 +17,17 @@
     "leaflet": "^1.9.4",
     "leaflet-defaulticon-compatibility": "^0.1.2",
     "next": "13.5.4",
+    "next-auth": "^4.23.2",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^4.11.0",
+    "react-leaflet-enhanced-marker": "^1.0.21",
     "react-leaflet": "^4.2.1",
     "swr": "^2.2.4"
   },
   "devDependencies": {
-    "@types/eslint": "^8.44.4",
     "@chakra-ui/cli": "^2.4.1",
+    "@types/eslint": "^8.44.4",
     "@types/leaflet": "^1.9.6",
     "@types/node": "^20.8.6",
     "@types/react": "^18.2.28",
