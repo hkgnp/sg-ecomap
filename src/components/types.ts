@@ -29,10 +29,6 @@ export type Props = {
   resources: Resource[];
 };
 
-export type PostWithAuthor = Prisma.PostGetPayload<{
-  include: { author: true };
-}>;
-
 export type PostProps = {
   id: string;
 };
@@ -40,13 +36,6 @@ export type PostProps = {
 export type ResourceActionProps = {
   id: string;
   setIsEditing: Function;
-};
-
-export type CommentCardProps = {
-  title: string | null;
-  content: string;
-  authorName: string | null;
-  updatedAt: Date;
 };
 
 export type SearchFilterUtilsProps = {

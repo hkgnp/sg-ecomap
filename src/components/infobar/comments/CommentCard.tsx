@@ -1,40 +1,31 @@
 import { format } from "date-fns";
-import { CommentCardProps } from "../../types";
 import {
   Box,
   Card,
   CardBody,
   Flex,
-  Heading,
   Stack,
   StackDivider,
   Text,
 } from "@chakra-ui/react";
 import { RxAvatar } from "react-icons/rx";
+import { Post } from "@prisma/client";
 
-export const CommentCard = ({
-  authorName,
-  title,
-  content,
-  updatedAt,
-}: CommentCardProps) => {
+export const CommentCard = ({ author, content, createdAt }: Post) => {
   return (
     <>
       <Card marginBottom="4">
         <CardBody>
-          <Heading size="xs" textTransform="uppercase" marginBottom="2">
-            {title}
-          </Heading>
           <Stack divider={<StackDivider />} spacing="3">
             <Box>
               <Text textStyle="body-2">{content}</Text>
             </Box>
             <Flex flexDirection="row" justifyContent="space-between">
               <Text textStyle="caption-1" display="flex" gap="1">
-                <RxAvatar size="14" /> {authorName}
+                <RxAvatar size="14" /> {author}
               </Text>
               <Text textStyle="caption-1">
-                {format(new Date(updatedAt), "dd-MM-yyyy")}
+                {format(new Date(createdAt), "dd-MM-yyyy")}
               </Text>
             </Flex>
           </Stack>

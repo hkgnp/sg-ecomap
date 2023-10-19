@@ -1,13 +1,11 @@
 import { Skeleton, Stack, Text } from "@chakra-ui/react";
-import { useState } from "react";
 import { CommentCard } from "./CommentCard";
-import { PostProps, PostWithAuthor } from "../../types";
+import { PostProps } from "../../types";
 import useSWR from "swr";
 import WriteComments from "./WriteComments";
+import { Post } from "@prisma/client";
 
 export const Comments = ({ id }: PostProps) => {
-  const [postingComments, setPostingComments] = useState(false);
-
   // @ts-ignore
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const useComments = () => {
@@ -16,7 +14,7 @@ export const Comments = ({ id }: PostProps) => {
       fetcher,
     );
     return {
-      comments: data as PostWithAuthor[],
+      comments: data,
       isLoading,
       isError: error,
       mutate: mutate,
@@ -39,13 +37,15 @@ export const Comments = ({ id }: PostProps) => {
         </Stack>
       )}
       {!isLoading &&
-        comments.map((p) => (
+        comments.map((p: Post) => (
           <CommentCard
             key={p.id}
-            authorName={p.author.name}
-            title={p.title}
+            id={p.id}
+            author={p.author}
             content={p.content}
-            updatedAt={p.updatedAt}
+            contentHtml={p.contentHtml}
+            createdAt={p.createdAt}
+            resourceId={p.resourceId}
           />
         ))}
     </>
