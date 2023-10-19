@@ -23,7 +23,6 @@
     "react-google-recaptcha": "^3.1.0",
     "react-icons": "^4.11.0",
     "react-leaflet": "^4.2.1",
-    "react-leaflet-enhanced-marker": "^1.0.21",
     "swr": "^2.2.4"
   },
   "devDependencies": {
@@ -38,6 +37,7 @@
     "@typescript-eslint/parser": "^6.7.5",
     "eslint": "^8.51.0",
     "eslint-config-next": "13.5.4",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
     "prisma": "^5.4.2",
     "typescript": "^5.2.2"
