@@ -1,3 +1,22 @@
 {
-  "extends": ["next/core-web-vitals", "plugin:react-hooks/recommended"]
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "prettier"],
+  "rules": {
+    "@typescript-eslint/ban-ts-comment": "off",
+    "prettier/prettier": "error",
+    "comma-dangle": ["error", "always-multiline"],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ]
+  }
 }

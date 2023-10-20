@@ -1,21 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../prisma/client";
+import { commentSchema } from "./schema";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   if (req.method === "POST") {
-    const { content, resourceId, author, captcha } = req.body;
-    if (!content || !resourceId || !author || !captcha) {
-      return res.status(422).json({
-        error: "Error processing request. Please supply the required fields.",
-      });
+    const validation = commentSchema.safeParse(req.body);
+    if (!validation.success) {
+      return res.status(422).json(validation.error.errors);
     }
     // Verify if captcha is legit
     try {
       const response = await fetch(
-        `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${captcha}`,
+        `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${req.body.captcha}`,
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
@@ -28,17 +27,17 @@ export default async function handler(
         // If legit, save token details
         await prisma.verificationToken.create({
           data: {
-            token: captcha,
+            token: req.body.captcha,
             challengeTs: captchaValidation.challenge_ts,
           },
         });
         // And create post
         const result = await prisma.post.create({
           data: {
-            content: content,
-            contentHtml: content,
-            author: author,
-            resourceId: resourceId,
+            content: req.body.content,
+            contentHtml: req.body.content,
+            author: req.body.author,
+            resourceId: req.body.resourceId,
           },
         });
         res.status(200).send(result);

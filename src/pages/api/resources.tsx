@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../prisma/client";
+import { markInactiveResourceSchema } from "./schema";
 
 export default async function handler(
   req: NextApiRequest,
@@ -28,14 +29,17 @@ export default async function handler(
       }
     }
   } else if (req.method === "POST") {
-    const { id, action } = req.body;
+    const validation = markInactiveResourceSchema.safeParse(req.body);
+    if (!validation.success) {
+      return res.status(422).send(validation.error.errors);
+    }
     try {
       const result = await prisma.resource.updateMany({
         where: {
-          id: id,
+          id: req.body.id,
         },
         data: {
-          inactive: action,
+          inactive: req.body.action,
         },
       });
       res.status(200).send({ message: "Resource status updated.", result });
