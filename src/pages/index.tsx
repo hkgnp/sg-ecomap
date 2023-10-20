@@ -1,12 +1,12 @@
 import dynamic from "next/dynamic";
-import { Resource } from "@prisma/client";
 import type { InferGetStaticPropsType, GetStaticProps } from "next";
 import { getResources } from "./api/resources";
 import { createContext } from "react";
+import { Resource } from "@prisma/client";
 
 export const getStaticProps = (async () => {
   const resources = await getResources();
-  return { props: { resources } };
+  return { props: { resources: resources } };
 }) satisfies GetStaticProps<{
   resources: Resource[];
 }>;

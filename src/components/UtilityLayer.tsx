@@ -23,13 +23,13 @@ const UtilityLayer = () => {
     setFilteredResources(resources);
     setCategories([
       ...new Set(resources.map((i: { category: string }) => i.category)),
-    ]);
+    ] as string[]);
   }, [resources]);
 
   const filterResources = async (e: string) => {
     setFilteredResources(
       resources?.filter(
-        (r) =>
+        (r: Resource) =>
           r.name.toLowerCase().includes(e.toLowerCase()) ||
           r.category.toLowerCase().includes(e.toLowerCase()) ||
           r.address.toLowerCase().includes(e.toLowerCase()) ||

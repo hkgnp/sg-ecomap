@@ -5,6 +5,7 @@ import { DrawerHeaderDetailsProps } from "../types";
 export const DrawerHeaderDetails = ({
   name,
   category,
+  inactive,
   onClose,
 }: DrawerHeaderDetailsProps) => {
   return (
@@ -24,9 +25,16 @@ export const DrawerHeaderDetails = ({
           marginRight="-4"
         />
       </Flex>
-      <Tag variant="solid" marginY="2" colorScheme="success">
-        {category}
-      </Tag>
+      <Flex gap="1">
+        <Tag variant="solid" marginY="2" colorScheme="success">
+          {category}
+        </Tag>
+        {inactive && (
+          <Tag variant="solid" marginY="2" colorScheme="critical">
+            Inactive
+          </Tag>
+        )}
+      </Flex>
     </>
   );
 };

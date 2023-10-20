@@ -1,5 +1,4 @@
 import {
-  Box,
   Drawer,
   DrawerBody,
   DrawerContent,
@@ -7,18 +6,14 @@ import {
   DrawerOverlay,
 } from "@chakra-ui/react";
 import { type InfoBarProps } from "../types";
-import { useContext, useState } from "react";
-import { Button } from "@opengovsg/design-system-react";
+import { useState } from "react";
 import { InfoBarDetails } from "./InfoBarDetails";
 import { Comments } from "./comments/Comments";
 import { ResourceActions } from "./ResourceActions";
 import { DrawerHeaderDetails } from "../drawer/DrawerHeaderDetails";
-import { ResourceContext } from "~/src/pages";
+import useSWR from "swr";
 
 export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
-  const resources = useContext(ResourceContext);
-  const [isEditing, setIsEditing] = useState(false);
-
   const [isPortrait, setIsPortrait] = useState<boolean>(
     screen.orientation.type === "portrait-primary" ? true : false,
   );
@@ -27,14 +22,38 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
     type === "portrait-primary" ? setIsPortrait(true) : setIsPortrait(false);
   });
 
-  const selectedResource = resources?.filter((r) => r.id === id)[0];
-  if (!selectedResource) return <div></div>;
-  const { name, address, contactNumber, email, category, website, postalCode } =
-    selectedResource;
+  // @ts-ignore
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const useResource = () => {
+    const { data, error, isLoading, mutate } = useSWR(
+      `/api/resources?${new URLSearchParams({ id })}`,
+      fetcher,
+    );
+    return {
+      resource: data,
+      isLoading,
+      isError: error,
+      mutate: mutate,
+    };
+  };
+
+  const { resource, isLoading, mutate } = useResource();
+  if (!resource) return null;
+
+  const {
+    name,
+    address,
+    contactNumber,
+    email,
+    category,
+    website,
+    postalCode,
+    inactive,
+  } = resource;
 
   return (
     <>
-      {resources && selectedResource && (
+      {!isLoading && (
         <Drawer
           placement={isPortrait ? "bottom" : "right"}
           isFullHeight={false}
@@ -54,25 +73,22 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
               <DrawerHeaderDetails
                 name={name}
                 category={category}
+                inactive={inactive}
                 onClose={onClose}
               />
-              {!isEditing && (
-                <>
-                  <InfoBarDetails
-                    address={address}
-                    postalCode={postalCode}
-                    website={website}
-                    contactNumber={contactNumber}
-                    email={email}
-                  />
-                  <ResourceActions id={id} setIsEditing={setIsEditing} />
-                </>
-              )}
-              {isEditing && (
-                <Box>
-                  <Button onClick={() => setIsEditing(false)}>Done</Button>
-                </Box>
-              )}
+              <InfoBarDetails
+                address={address}
+                postalCode={postalCode}
+                website={website}
+                contactNumber={contactNumber}
+                email={email}
+              />
+              <ResourceActions
+                id={id}
+                inactive={inactive}
+                resource={resource}
+                mutate={mutate}
+              />
             </DrawerHeader>
             <DrawerBody>
               <Comments id={id} />

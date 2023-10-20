@@ -12,7 +12,7 @@ generator client {
 }
 
 model Resource {
-  id            String  @id @default(cuid())
+  id            String   @id @unique @default(cuid())
   name          String
   category      String
   address       String
@@ -23,6 +23,7 @@ model Resource {
   contactNumber String?
   website       String?
   posts         Post[]
+  inactive      Boolean?
 }
 
 model VerificationToken {

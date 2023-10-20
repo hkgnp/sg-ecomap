@@ -3,17 +3,28 @@ import { type LeafletMouseEventHandlerFn } from "leaflet";
 import { MouseEventHandler, type Dispatch, type SetStateAction } from "react";
 import { KeyedMutator } from "swr";
 
-export interface MarkerObjProps {
+export type MarkerObjProps = {
   id: string;
   latitude: number;
   longitude: number;
   category: string;
-}
+};
+
+export type ResourceLatLngProps = {
+  id: string;
+  latitude: number;
+  longitude: number;
+};
 
 export type DrawerContextProps = {
   onOpen: LeafletMouseEventHandlerFn;
   setId: Dispatch<SetStateAction<string>>;
 };
+
+export type ResourceContextProps = [
+  resourcesState: Resource[],
+  setResourcesState: Dispatch<Resource[]>,
+];
 
 export type InfoBarProps = {
   isOpen: boolean;
@@ -35,7 +46,9 @@ export type PostProps = {
 
 export type ResourceActionProps = {
   id: string;
-  setIsEditing: Function;
+  inactive: boolean | null;
+  resource: Resource;
+  mutate: KeyedMutator<any>;
 };
 
 export type SearchFilterUtilsProps = {
@@ -46,6 +59,7 @@ export type SearchFilterUtilsProps = {
 export type DrawerHeaderDetailsProps = {
   name: string;
   category: string;
+  inactive: boolean | null;
   onClose: MouseEventHandler;
 };
 
