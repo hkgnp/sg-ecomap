@@ -15,6 +15,7 @@ const WriteComments = ({ id, comments, mutate }: WriteCommentsProps) => {
   };
 
   const onReCAPTCHAChange = async (captchaCode: string | null) => {
+    // TODO: Handle recaptcha issues better
     if (!captchaCode) return;
     if (recaptchaRef.current) {
       try {
@@ -35,7 +36,9 @@ const WriteComments = ({ id, comments, mutate }: WriteCommentsProps) => {
         setContent("");
         setAuthor("");
       } catch (error) {
+        // TODO: Handle recaptcha issues better
         console.log(error);
+        return;
       } finally {
         recaptchaRef.current.reset();
       }

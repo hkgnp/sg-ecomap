@@ -24,13 +24,6 @@ export default async function handler(
       );
       const captchaValidation = await response.json();
       if (captchaValidation.success) {
-        // If legit, save token details
-        await prisma.verificationToken.create({
-          data: {
-            token: req.body.captcha,
-            challengeTs: captchaValidation.challenge_ts,
-          },
-        });
         // And create post
         const result = await prisma.post.create({
           data: {
@@ -38,6 +31,13 @@ export default async function handler(
             contentHtml: req.body.content,
             author: req.body.author,
             resourceId: req.body.resourceId,
+          },
+        });
+        // If legit, save token details
+        await prisma.verificationToken.create({
+          data: {
+            token: req.body.captcha,
+            challengeTs: captchaValidation.challenge_ts,
           },
         });
         res.status(200).send(result);
