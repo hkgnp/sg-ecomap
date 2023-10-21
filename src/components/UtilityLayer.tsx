@@ -5,7 +5,7 @@ import { useDisclosure } from "@chakra-ui/react";
 import { SearchFilterUtilities } from "./SearchFilterUtilities";
 import { Resource } from "@prisma/client";
 import { InfoBar } from "./infobar/InfoBar";
-import useSWR from "swr";
+import { useResources } from "../utils/swr";
 
 export const DrawerContext = createContext<DrawerContextProps | null>(null);
 
@@ -16,17 +16,7 @@ const UtilityLayer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [id, setId] = useState<string>("");
 
-  // @ts-ignore
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  const useResource = () => {
-    const { data, error, isLoading } = useSWR(`/api/resources`, fetcher);
-    return {
-      resources: data,
-      isLoading,
-      isError: error,
-    };
-  };
-  const { resources, isLoading } = useResource();
+  const { resources, isLoading } = useResources();
 
   useEffect(() => {
     if (!isLoading) {

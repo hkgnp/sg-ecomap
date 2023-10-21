@@ -103,7 +103,7 @@ export const SearchFilterUtilities = ({
             }
             value={searchTerm}
             display={searchOpen ? "block" : "none"}
-            placeholder="Start searching"
+            placeholder="Search..."
             size="xs"
             width="210px"
             rounded="2xl"

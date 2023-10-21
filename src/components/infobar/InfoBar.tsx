@@ -11,7 +11,7 @@ import { InfoBarDetails } from "./InfoBarDetails";
 import { Comments } from "./comments/Comments";
 import { ResourceActions } from "./ResourceActions";
 import { DrawerHeaderDetails } from "../drawer/DrawerHeaderDetails";
-import useSWR from "swr";
+import { useResource } from "~/src/utils/swr";
 
 export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
   const [isPortrait, setIsPortrait] = useState<boolean>(
@@ -22,22 +22,7 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
     type === "portrait-primary" ? setIsPortrait(true) : setIsPortrait(false);
   });
 
-  // @ts-ignore
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  const useResource = () => {
-    const { data, error, isLoading, mutate } = useSWR(
-      `/api/resources?${new URLSearchParams({ id })}`,
-      fetcher,
-    );
-    return {
-      resource: data,
-      isLoading,
-      isError: error,
-      mutate: mutate,
-    };
-  };
-
-  const { resource, isLoading, mutate } = useResource();
+  const { resource, isLoading, mutate } = useResource(id);
   if (!resource) return null;
 
   const {

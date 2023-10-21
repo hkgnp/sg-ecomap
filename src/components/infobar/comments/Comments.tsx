@@ -1,27 +1,12 @@
 import { Skeleton, Stack, Text } from "@chakra-ui/react";
 import { CommentCard } from "./CommentCard";
 import { PostProps } from "../../types";
-import useSWR from "swr";
 import WriteComments from "./WriteComments";
 import { Post } from "@prisma/client";
+import { useComments } from "~/src/utils/swr";
 
 export const Comments = ({ id }: PostProps) => {
-  // @ts-ignore
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  const useComments = () => {
-    const { data, error, isLoading, mutate } = useSWR(
-      `/api/comments?${new URLSearchParams({ id })}`,
-      fetcher,
-    );
-    return {
-      comments: data,
-      isLoading,
-      isError: error,
-      mutate: mutate,
-    };
-  };
-
-  const { comments, isLoading, mutate } = useComments();
+  const { comments, isLoading, mutate } = useComments(id);
 
   return (
     <>
