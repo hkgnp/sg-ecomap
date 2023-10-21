@@ -25,6 +25,7 @@ const UtilityLayer = () => {
         ...new Set(resources.map((i: { category: string }) => i.category)),
       ] as string[]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resources]);
 
   const filterResources = async (e: string) => {

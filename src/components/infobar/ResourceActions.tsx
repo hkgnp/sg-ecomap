@@ -1,4 +1,4 @@
-import { Flex, Wrap, WrapItem } from "@chakra-ui/react";
+import { Wrap, WrapItem } from "@chakra-ui/react";
 import { Tag } from "@opengovsg/design-system-react";
 import { ResourceActionProps } from "../types";
 import { useState } from "react";

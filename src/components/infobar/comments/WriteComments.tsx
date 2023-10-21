@@ -7,15 +7,14 @@ import { WriteCommentsProps } from "../../types";
 const WriteComments = ({ id, comments, mutate }: WriteCommentsProps) => {
   const [content, setContent] = useState<string>("");
   const [author, setAuthor] = useState<string>("");
-  const recaptchaRef = useRef<any>();
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const handleSubmit = (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
-    recaptchaRef.current.execute();
+    recaptchaRef.current?.execute();
   };
 
   const onReCAPTCHAChange = async (captchaCode: string | null) => {
-    // TODO: Handle recaptcha issues better
     if (!captchaCode) return;
     if (recaptchaRef.current) {
       try {
