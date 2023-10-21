@@ -25,7 +25,7 @@ const UtilityLayer = () => {
         ...new Set(resources.map((i: { category: string }) => i.category)),
       ] as string[]);
     }
-  }, []);
+  }, [resources]);
 
   const filterResources = async (e: string) => {
     const Fuse = (await import("fuse.js")).default;
