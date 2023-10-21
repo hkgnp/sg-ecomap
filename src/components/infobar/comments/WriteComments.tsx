@@ -35,9 +35,7 @@ const WriteComments = ({ id, comments, mutate }: WriteCommentsProps) => {
         setContent("");
         setAuthor("");
       } catch (error) {
-        // TODO: Handle recaptcha issues better
-        console.log(error);
-        return;
+        return console.log(error);
       } finally {
         recaptchaRef.current.reset();
       }

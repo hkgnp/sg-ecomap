@@ -48,7 +48,7 @@ export type ResourceActionProps = {
   id: string;
   inactive: boolean | null;
   resource: Resource;
-  mutate: KeyedMutator<any>;
+  mutate: KeyedMutator<unknown>;
 };
 
 export type SearchFilterUtilsProps = {
@@ -66,5 +66,5 @@ export type DrawerHeaderDetailsProps = {
 export type WriteCommentsProps = {
   id: string;
   comments: Post[];
-  mutate: KeyedMutator<any>;
+  mutate: KeyedMutator<unknown>;
 };
