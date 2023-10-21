@@ -9,7 +9,7 @@ import { useResources } from "../utils/swr";
 
 export const DrawerContext = createContext<DrawerContextProps | null>(null);
 
-const UtilityLayer = () => {
+export const UtilityLayer = () => {
   const [filteredResources, setFilteredResources] = useState<Resource[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   // For drawer
@@ -55,5 +55,3 @@ const UtilityLayer = () => {
     </>
   );
 };
-
-export default UtilityLayer;
