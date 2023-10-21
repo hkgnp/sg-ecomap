@@ -1,6 +1,5 @@
 import { Flex } from "@chakra-ui/react";
 import { Tag } from "@opengovsg/design-system-react";
-import Link from "next/link";
 import { ResourceActionProps } from "../types";
 import { useState } from "react";
 
@@ -34,7 +33,13 @@ export const ResourceActions = ({
   return (
     <Flex direction="row" marginTop="4" gap="3">
       <Tag size="xs" cursor="pointer" colorScheme="main">
-        <Link href="#">Submit an Edit</Link>
+        <a
+          rel="noopener noreferrer"
+          target="_blank"
+          href={`${process.env.NEXT_PUBLIC_FORMSG_LINK}?${process.env.NEXT_PUBLIC_FORMSG_FIELD_ID}=${resource.name}`}
+        >
+          Submit an Edit
+        </a>
       </Tag>
       <Tag
         onClick={handleInactive}
