@@ -19,8 +19,8 @@ const UtilityLayer = () => {
   const { resources, isLoading } = useResources();
 
   useEffect(() => {
-    if (!isLoading) {
-      setFilteredResources(resources);
+    if (resources) {
+      setFilteredResources(resources! as Resource[]);
       setCategories([
         ...new Set(resources.map((i: { category: string }) => i.category)),
       ] as string[]);
