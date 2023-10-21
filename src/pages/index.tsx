@@ -8,10 +8,10 @@ export const getStaticProps = (async () => {
   const resources = await getResources();
   return { props: { resources: resources } };
 }) satisfies GetStaticProps<{
-  resources: Resource[];
+  resources: Partial<Resource>[];
 }>;
 
-export const ResourceContext = createContext<Resource[] | null>(null);
+export const ResourceContext = createContext<Partial<Resource>[] | null>(null);
 
 const Home = ({
   resources,

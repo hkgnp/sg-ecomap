@@ -7,7 +7,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method === "GET") {
-    if (req.query) {
+    if (req.query.id) {
       try {
         const result = await prisma.resource.findUnique({
           where: {
@@ -51,6 +51,12 @@ export default async function handler(
 }
 
 export const getResources = async () => {
-  const result = await prisma.resource.findMany();
+  const result = await prisma.resource.findMany({
+    select: {
+      id: true,
+      latitude: true,
+      longitude: true,
+    },
+  });
   return result;
 };
