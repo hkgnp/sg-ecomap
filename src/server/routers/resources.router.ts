@@ -1,5 +1,4 @@
-import { procedure } from "../trpc";
-import { router } from "../trpc";
+import { procedure, router } from "../trpc";
 import prisma from "../../../prisma/client";
 import { z } from "zod";
 import { markInactiveResourceSchema } from "@/pages/api/schema";

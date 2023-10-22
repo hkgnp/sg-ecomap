@@ -2,34 +2,46 @@ import { Skeleton, Stack, Text } from "@chakra-ui/react";
 import { CommentCard } from "./CommentCard";
 import { PostProps } from "../../types";
 import WriteComments from "./WriteComments";
-import { Post } from "@prisma/client";
-import { useComments } from "@/utils/swr";
+import { trpc } from "@/utils/trpc";
 
 export const Comments = ({ id }: PostProps) => {
-  const { comments, isLoading, mutate } = useComments(id);
+  const utils = trpc.useContext();
+  const res = trpc.comments.find.useQuery({ id });
+  const update = trpc.comments.post.useMutation({
+    async onMutate() {
+      return utils.comments.find.getData();
+    },
+    onSettled() {
+      utils.comments.find.invalidate();
+    },
+  });
+
+  const comments = res.data;
+  if (!comments) return null;
+  console.log(comments);
 
   return (
     <>
       <Text textStyle="h6" marginTop="5">
         Comments
       </Text>
-      <WriteComments id={id} comments={comments} mutate={mutate} />
-      {isLoading && (
+      <WriteComments id={id} update={update} />
+      {!comments && (
         <Stack>
           <Skeleton height="20px" />
           <Skeleton height="20px" />
           <Skeleton height="20px" />
         </Stack>
       )}
-      {!isLoading &&
-        comments.map((p: Post) => (
+      {comments &&
+        comments.map((p) => (
           <CommentCard
             key={p.id}
             id={p.id}
             author={p.author}
             content={p.content}
             contentHtml={p.contentHtml}
-            createdAt={p.createdAt}
+            createdAt={new Date(p.createdAt)}
             resourceId={p.resourceId}
           />
         ))}

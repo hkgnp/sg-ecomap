@@ -26,7 +26,8 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
   const res = trpc.resources.findOne.useQuery({ id });
   const update = trpc.resources.updateActive.useMutation({
     async onMutate() {
-      return utils.resources.findOne.getData();
+      const prevData = utils.resources.findOne.getData();
+      return prevData;
     },
     onSettled() {
       utils.resources.findOne.invalidate();

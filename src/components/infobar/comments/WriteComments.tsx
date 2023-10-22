@@ -4,7 +4,7 @@ import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { WriteCommentsProps } from "../../types";
 
-const WriteComments = ({ id, comments, mutate }: WriteCommentsProps) => {
+const WriteComments = ({ id, update }: WriteCommentsProps) => {
   const [content, setContent] = useState<string>("");
   const [author, setAuthor] = useState<string>("");
   const recaptchaRef = useRef<ReCAPTCHA>(null);
@@ -18,20 +18,12 @@ const WriteComments = ({ id, comments, mutate }: WriteCommentsProps) => {
     if (!captchaCode) return;
     if (recaptchaRef.current) {
       try {
-        const res = await fetch("/api/comments", {
-          method: "POST",
-          body: JSON.stringify({
-            content,
-            author,
-            resourceId: id,
-            captcha: captchaCode,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
+        update.mutate({
+          resourceId: id,
+          author,
+          captcha: captchaCode,
+          content: content,
         });
-        const newComment = await res.json();
-        mutate([...comments, newComment]);
         setContent("");
         setAuthor("");
       } catch (error) {

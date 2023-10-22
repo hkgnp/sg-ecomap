@@ -1,7 +1,7 @@
-import { Post, Resource } from "@prisma/client";
+import { Resource } from "@prisma/client";
 import { type LeafletMouseEventHandlerFn } from "leaflet";
+import { InferMutationResult } from "node_modules/@trpc/react-query/dist/utils/inferReactQueryProcedure";
 import { MouseEventHandler, type Dispatch, type SetStateAction } from "react";
-import { KeyedMutator } from "swr";
 
 export type MarkerObjProps = {
   id: string;
@@ -64,6 +64,5 @@ export type DrawerHeaderDetailsProps = {
 
 export type WriteCommentsProps = {
   id: string;
-  comments: Post[];
-  mutate: KeyedMutator<unknown>;
+  update: InferMutationResult<any>;
 };
