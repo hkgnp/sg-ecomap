@@ -5,10 +5,12 @@ import { Inter } from "next/font/google";
 import "../styles/leaflet-control-hack.css";
 import "../styles/recaptcha-hidden.css";
 import Head from "next/head";
+import type { AppType } from "next/app";
+import { trpc } from "../utils/trpc";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function App({ Component, pageProps }: AppProps) {
+const App: AppType = ({ Component, pageProps }: AppProps) => {
   return (
     <ThemeProvider theme={theme}>
       <Head>
@@ -24,4 +26,6 @@ export default function App({ Component, pageProps }: AppProps) {
       </main>
     </ThemeProvider>
   );
-}
+};
+
+export default trpc.withTRPC(App);

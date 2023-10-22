@@ -1,3 +1,4 @@
+import { trpc } from "@/utils/trpc";
 import {
   Drawer,
   DrawerBody,
@@ -11,7 +12,6 @@ import { InfoBarDetails } from "./InfoBarDetails";
 import { Comments } from "./comments/Comments";
 import { ResourceActions } from "./ResourceActions";
 import { DrawerHeaderDetails } from "../drawer/DrawerHeaderDetails";
-import { useResource } from "~/src/utils/swr";
 
 export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
   const [isPortrait, setIsPortrait] = useState<boolean>(
@@ -22,7 +22,18 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
     type === "portrait-primary" ? setIsPortrait(true) : setIsPortrait(false);
   });
 
-  const { resource, isLoading, mutate } = useResource(id);
+  const utils = trpc.useContext();
+  const res = trpc.resources.findOne.useQuery({ id });
+  const update = trpc.resources.updateActive.useMutation({
+    async onMutate() {
+      return utils.resources.findOne.getData();
+    },
+    onSettled() {
+      utils.resources.findOne.invalidate();
+    },
+  });
+
+  const resource = res.data;
   if (!resource) return null;
 
   const {
@@ -36,51 +47,55 @@ export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
     inactive,
   } = resource;
 
+  const handleInactive = () => {
+    update.mutate({
+      id,
+      action: !inactive,
+    });
+  };
+
   return (
     <>
-      {!isLoading && (
-        <Drawer
-          placement={isPortrait ? "bottom" : "right"}
-          isFullHeight={false}
-          autoFocus={false}
-          onClose={onClose}
-          isOpen={isOpen}
-          closeOnEsc={true}
-          closeOnOverlayClick={true}
+      <Drawer
+        placement={isPortrait ? "bottom" : "right"}
+        isFullHeight={false}
+        autoFocus={false}
+        onClose={onClose}
+        isOpen={isOpen}
+        closeOnEsc={true}
+        closeOnOverlayClick={true}
+      >
+        <DrawerOverlay />
+        {/*Set maxH for DrawerContent so it doesn't take up the full height on a small screen when there is long content */}
+        <DrawerContent
+          maxH={isPortrait ? "80vh" : "100vh"}
+          h={isPortrait ? "80vh" : "100vh"}
         >
-          <DrawerOverlay />
-          {/*Set maxH for DrawerContent so it doesn't take up the full height on a small screen when there is long content */}
-          <DrawerContent
-            maxH={isPortrait ? "80vh" : "100vh"}
-            h={isPortrait ? "80vh" : "100vh"}
-          >
-            <DrawerHeader borderBottomWidth="1px">
-              <DrawerHeaderDetails
-                name={name}
-                category={category}
-                inactive={inactive}
-                onClose={onClose}
-              />
-              <InfoBarDetails
-                address={address}
-                postalCode={postalCode}
-                website={website}
-                contactNumber={contactNumber}
-                email={email}
-              />
-              <ResourceActions
-                id={id}
-                inactive={inactive}
-                resource={resource}
-                mutate={mutate}
-              />
-            </DrawerHeader>
-            <DrawerBody>
-              <Comments id={id} />
-            </DrawerBody>
-          </DrawerContent>
-        </Drawer>
-      )}
+          <DrawerHeader borderBottomWidth="1px">
+            <DrawerHeaderDetails
+              name={name}
+              category={category}
+              inactive={inactive}
+              onClose={onClose}
+            />
+            <InfoBarDetails
+              address={address}
+              postalCode={postalCode}
+              website={website}
+              contactNumber={contactNumber}
+              email={email}
+            />
+            <ResourceActions
+              handleInactive={handleInactive}
+              inactive={inactive}
+              resource={resource}
+            />
+          </DrawerHeader>
+          <DrawerBody>
+            <Comments id={id} />
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 };

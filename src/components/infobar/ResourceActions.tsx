@@ -1,35 +1,12 @@
 import { Wrap, WrapItem } from "@chakra-ui/react";
 import { Tag } from "@opengovsg/design-system-react";
 import { ResourceActionProps } from "../types";
-import { useState } from "react";
 
 export const ResourceActions = ({
-  id,
+  handleInactive,
   inactive,
   resource,
-  mutate,
 }: ResourceActionProps) => {
-  const [inactiveState, setInactiveState] = useState<boolean>(inactive!);
-
-  const handleInactive = async () => {
-    try {
-      await fetch("/api/resources", {
-        method: "POST",
-        body: JSON.stringify({
-          id,
-          action: !inactiveState,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      mutate({ ...resource, inactive: inactive });
-      setInactiveState(inactiveState ? false : true);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <Wrap marginTop="4" spacing="2" align="center">
       <WrapItem>

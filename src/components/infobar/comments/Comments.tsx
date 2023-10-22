@@ -3,7 +3,7 @@ import { CommentCard } from "./CommentCard";
 import { PostProps } from "../../types";
 import WriteComments from "./WriteComments";
 import { Post } from "@prisma/client";
-import { useComments } from "~/src/utils/swr";
+import { useComments } from "@/utils/swr";
 
 export const Comments = ({ id }: PostProps) => {
   const { comments, isLoading, mutate } = useComments(id);

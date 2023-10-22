@@ -45,10 +45,9 @@ export type PostProps = {
 };
 
 export type ResourceActionProps = {
-  id: string;
+  handleInactive: () => void;
   inactive: boolean | null;
   resource: Resource;
-  mutate: KeyedMutator<unknown>;
 };
 
 export type SearchFilterUtilsProps = {
