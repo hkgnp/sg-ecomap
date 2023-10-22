@@ -18,7 +18,6 @@ export const Comments = ({ id }: PostProps) => {
 
   const comments = res.data;
   if (!comments) return null;
-  console.log(comments);
 
   return (
     <>
