@@ -15,11 +15,11 @@ import { DrawerHeaderDetails } from "../drawer/DrawerHeaderDetails";
 
 export const InfoBar = ({ isOpen, onClose, id }: InfoBarProps) => {
   const [isPortrait, setIsPortrait] = useState<boolean>(
-    screen.orientation.type === "portrait-primary" ? true : false,
+    screen.orientation.type.startsWith("portrait") ? true : false,
   );
   screen.orientation.addEventListener("change", (event: Event) => {
     const type = (event.target as ScreenOrientation).type;
-    type === "portrait-primary" ? setIsPortrait(true) : setIsPortrait(false);
+    type.startsWith("portrait") ? setIsPortrait(true) : setIsPortrait(false);
   });
 
   const utils = trpc.useContext();
