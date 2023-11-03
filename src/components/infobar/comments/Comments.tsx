@@ -6,7 +6,7 @@ import { trpc } from "@/utils/trpc";
 
 export const Comments = ({ id }: PostProps) => {
   const utils = trpc.useContext();
-  const res = trpc.comments.find.useQuery({ id });
+  const res = trpc.comments.find.useQuery({ id }, { enabled: !!id });
   const update = trpc.comments.post.useMutation({
     async onMutate() {
       return utils.comments.find.getData();

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { procedure, router } from "../trpc";
-import prisma from "prisma/client";
 import { commentSchema } from "@/pages/api/schema";
+import prisma from "prisma/client";
 
 export const commentRouter = router({
   find: procedure
