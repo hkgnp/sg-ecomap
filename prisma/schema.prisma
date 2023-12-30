@@ -6,11 +6,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-generator zod {
-  provider = "npx zod-prisma-types"
-  output   = "./zod"
-}
-
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
