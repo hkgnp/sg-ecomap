@@ -1,14 +1,14 @@
 import { procedure, router } from "../trpc";
 import prisma from "../../../prisma/client";
-import { z } from "zod";
 import { markInactiveResourceSchema } from "@/pages/api/schema";
+import { ResourceWhereUniqueInputSchema } from "prisma/zod";
 
 export const resourceRouter = router({
   findAll: procedure.query(async () => {
     return await prisma.resource.findMany();
   }),
   findOne: procedure
-    .input(z.object({ id: z.string().min(1) }))
+    .input(ResourceWhereUniqueInputSchema)
     .query(async (opts) => {
       const { id } = opts.input;
       return await prisma.resource.findUnique({

@@ -1,22 +1,20 @@
-import { z } from "zod";
-import { procedure, router } from "../trpc";
 import { commentSchema } from "@/pages/api/schema";
+import { procedure, router } from "../trpc";
 import prisma from "prisma/client";
+import { CommentWhereUniqueInputSchema } from "prisma/zod";
 
 export const commentRouter = router({
-  find: procedure
-    .input(z.object({ id: z.string().min(1) }))
-    .query(async (opts) => {
-      const { id } = opts.input;
-      return await prisma.comment.findMany({
-        where: {
-          resourceId: id,
-        },
-        orderBy: {
-          createdAt: "desc",
-        },
-      });
-    }),
+  find: procedure.input(CommentWhereUniqueInputSchema).query(async (opts) => {
+    const { id } = opts.input;
+    return await prisma.comment.findMany({
+      where: {
+        resourceId: id,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }),
   post: procedure.input(commentSchema).mutation(async (opts) => {
     const { captcha, content, author, resourceId } = opts.input;
     const response = await fetch(

@@ -1,7 +1,7 @@
-import { Post, Resource } from "@prisma/client";
+import { Comment, Resource } from "@prisma/client";
 import useSWR from "swr";
 
-const fetcher = async <JSON = Resource | Resource[] | Post[]>(
+const fetcher = async <JSON = Resource | Resource[] | Comment[]>(
   input: RequestInfo,
   init?: RequestInit,
 ): Promise<JSON> => {
@@ -38,7 +38,7 @@ export const useComments = (id: string) => {
     fetcher,
   );
   return {
-    comments: data as Post[],
+    comments: data as Comment[],
     isLoading,
     isError: error,
     mutate: mutate,

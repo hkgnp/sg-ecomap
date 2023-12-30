@@ -25,7 +25,7 @@ export default async function handler(
       const captchaValidation = await response.json();
       if (captchaValidation.success) {
         // And create post
-        const result = await prisma.post.create({
+        const result = await prisma.comment.create({
           data: {
             content: req.body.content,
             contentHtml: req.body.content,
@@ -52,7 +52,7 @@ export default async function handler(
     }
   } else {
     try {
-      const result = await prisma.post.findMany({
+      const result = await prisma.comment.findMany({
         where: {
           resourceId: req.query.id as string,
         },

@@ -9,9 +9,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { RxAvatar } from "react-icons/rx";
-import { Post } from "@prisma/client";
+import { Comment } from "@prisma/client";
 
-export const CommentCard = ({ author, content, createdAt }: Post) => {
+export const CommentCard = ({ author, content, createdAt }: Comment) => {
   return (
     <>
       <Card marginBottom="4">
