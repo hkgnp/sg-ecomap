@@ -8,7 +8,7 @@ export const commentRouter = router({
     .input(z.object({ id: z.string().min(1) }))
     .query(async (opts) => {
       const { id } = opts.input;
-      return await prisma.post.findMany({
+      return await prisma.comment.findMany({
         where: {
           resourceId: id,
         },
@@ -31,7 +31,7 @@ export const commentRouter = router({
     const captchaValidation = await response.json();
     if (captchaValidation.success) {
       // And create post
-      await prisma.post.create({
+      await prisma.comment.create({
         data: {
           content: content,
           contentHtml: content,

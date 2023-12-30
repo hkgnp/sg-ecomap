@@ -4,6 +4,8 @@ import { theme } from "../theme";
 import { Inter } from "next/font/google";
 import "../styles/leaflet-control-hack.css";
 import "../styles/recaptcha-hidden.css";
+import "../styles/MarkerCluster.Default.css";
+import "../styles/MarkerCluster.css";
 import Head from "next/head";
 import type { AppType } from "next/app";
 import { trpc } from "../utils/trpc";
