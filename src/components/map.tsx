@@ -4,7 +4,6 @@ import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import type { LatLngExpression } from "leaflet";
 import { UtilityLayer } from "./UtilityLayer";
-import MarkerClusterGroup from "@/libs/cluster";
 
 const Index = () => {
   const singapore: LatLngExpression = [1.3521, 103.8198];
@@ -24,9 +23,7 @@ const Index = () => {
           '<a href="https://www.onemap.gov.sg/" target="_blank" rel="noopener noreferrer">OneMap</a>&nbsp;&copy;&nbsp;contributors&nbsp;&#124;&nbsp;<a href="https://www.sla.gov.sg/" target="_blank" rel="noopener noreferrer">Singapore Land Authority</a>'
         }
       />
-      <MarkerClusterGroup>
-        <UtilityLayer />
-      </MarkerClusterGroup>
+      <UtilityLayer />
     </MapContainer>
   );
 };
