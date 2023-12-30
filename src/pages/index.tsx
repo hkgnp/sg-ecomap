@@ -1,24 +1,18 @@
 import dynamic from "next/dynamic";
-import type { InferGetStaticPropsType, GetStaticProps } from "next";
-import { getResources } from "./api/resources";
 import { createContext } from "react";
 import { Resource } from "@prisma/client";
-
-export const getStaticProps = (async () => {
-  const resources = await getResources();
-  return { props: { resources: resources } };
-}) satisfies GetStaticProps<{
-  resources: Partial<Resource>[];
-}>;
+import { trpc } from "@/utils/trpc";
 
 export const ResourceContext = createContext<Partial<Resource>[] | null>(null);
 
-const Home = ({
-  resources,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home = () => {
   const MapWithNoSSR = dynamic(() => import("../components/map"), {
     ssr: false,
   });
+
+  const response = trpc.resources.findAll.useQuery();
+  if (!response.data) return null;
+  const resources = response.data;
 
   return (
     <div id="map">

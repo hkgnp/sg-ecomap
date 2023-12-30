@@ -30,7 +30,9 @@
     "react-icons": "^4.11.0",
     "react-leaflet": "^4.2.1",
     "swr": "^2.2.4",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "zod-prisma-types-monorepo": "github:chrishoermann/zod-prisma-types",
+    "superjson": "^2.2.1"
   },
   "devDependencies": {
     "@chakra-ui/cli": "^2.4.1",

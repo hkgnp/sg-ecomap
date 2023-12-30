@@ -11,8 +11,13 @@ generator client {
   previewFeatures = ["fullTextSearch"]
 }
 
+generator zod {
+  provider = "npx zod-prisma-types"
+  output   = "./zod"
+}
+
 model Resource {
-  id            String   @id @unique @default(cuid())
+  id            String    @id @unique @default(cuid())
   name          String
   category      String
   address       String
@@ -22,7 +27,7 @@ model Resource {
   email         String?
   contactNumber String?
   website       String?
-  posts         Post[]
+  comments      Comment[]
   inactive      Boolean?
 }
 
@@ -33,7 +38,7 @@ model VerificationToken {
   challengeTs String   @map("challenge_ts")
 }
 
-model Post {
+model Comment {
   id          String   @id @default(cuid())
   resourceId  String   @map("resource_id")
   resource    Resource @relation(fields: [resourceId], references: [id])
