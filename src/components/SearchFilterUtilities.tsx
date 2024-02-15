@@ -103,7 +103,7 @@ export const SearchFilterUtilities = ({
             }
             value={searchTerm}
             display={searchOpen ? "block" : "none"}
-            placeholder="Search..."
+            placeholder="Enter postal code or organization name"
             size="xs"
             width="210px"
             rounded="2xl"
