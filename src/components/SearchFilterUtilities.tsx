@@ -39,8 +39,10 @@ export const SearchFilterUtilities = ({
 
       setLocationLatLng([lat, lng]);
       map.setView([lat, lng], 16);
+    } else {
+      filterResources(searchTerm);
+      map.setView([1.3521, 103.8198], 13);
     }
-    filterResources(searchTerm);
   };
 
   const handleFilterCategory = (value: string) => {
